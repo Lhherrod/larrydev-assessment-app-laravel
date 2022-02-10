@@ -23,21 +23,28 @@ Route::get('/', function () {
     return view('welcome');
 })->name('landing');
 
-Route::get('/contact', function () { return view('contact'); })->name('contact.index');
 
-Route::post('/contact', [ContactController::class, 'create'])->name('contact.create')->middleware(ProtectAgainstSpam::class);
+Route::get('/contact', function () { 
+    return view('contact'); 
+})->name('contact.index');
 
-Route::get('/dashboard/', function () {
+Route::post('/contact', [ContactController::class, 'create'])
+->name('contact.create')
+->middleware(ProtectAgainstSpam::class, 'throttle:1,1');
+
+
+Route::get('/dashboard', function () {
     $assessmentStatus = auth()->user()->assessmentStatus;
     $assessmentCheckInStatus = auth()->user()->assessmentCheckInStatus;
     return view('dashboard')->with(['assessmentStatus'=> $assessmentStatus, 'assessmentCheckInStatus' => $assessmentCheckInStatus]);
 })->name('dashboard')->middleware(['middleware' => 'auth', 'verified']);
 
+
 Route::get('/users', [UserController::class, 'index'])->middleware(['middleware' => 'auth', 'verified'])
 ->name('users.index');
 
-
-Route::put('/users/{user}', [UserController::class, 'update'])->middleware(['middleware' => 'auth', 'verified'])
+Route::put('/users/{user}', [UserController::class, 'update'])
+->middleware(['middleware' => 'auth', 'verified'])
 ->name('users.update');
 
 
@@ -53,6 +60,7 @@ Route::group(['middleware' => 'auth', 'verified'], function () {
     ->name('assessment.update');
 
 });
+
 
 Route::delete('/assessment/{picture}', [ImageController::class, 'destroy'])->middleware(['middleware' => 'auth', 'verified']);
 
