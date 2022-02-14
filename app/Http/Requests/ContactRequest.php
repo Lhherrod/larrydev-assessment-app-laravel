@@ -32,4 +32,5 @@ class ContactRequest extends FormRequest
             
         ];
     }
+    
 }

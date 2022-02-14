@@ -30,7 +30,7 @@ Route::get('/contact', function () {
 
 Route::post('/contact', [ContactController::class, 'create'])
 ->name('contact.create')
-->middleware(ProtectAgainstSpam::class, 'throttle:1,1');
+->middleware('throttle:web');
 
 
 Route::get('/dashboard', function () {
@@ -65,5 +65,6 @@ Route::group(['middleware' => 'auth', 'verified'], function () {
 Route::delete('/assessment/{picture}', [ImageController::class, 'destroy'])->middleware(['middleware' => 'auth', 'verified']);
 
 Route::delete('/assessment/video/{video}', [VideoController::class, 'destroy'])->middleware(['middleware' => 'auth', 'verified']);
+
 
 require __DIR__.'/auth.php';

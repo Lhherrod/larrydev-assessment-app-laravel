@@ -2,6 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+* {
+    scroll-behavior: smooth;
+}
+
 .body {
     background-image: url("/storage/images/php_collage.png");
     background-repeat: no-repeat;

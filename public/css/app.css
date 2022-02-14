@@ -1231,6 +1231,9 @@ select {
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
+* {
+    scroll-behavior: smooth;
+}
 .body {
     background-image: url("/storage/images/php_collage.png");
     background-repeat: no-repeat;

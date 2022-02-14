@@ -12,8 +12,8 @@ class ContactService {
                 'response' => $_POST['g-recaptcha-response'],
                 'remoteip' => $_SERVER['REMOTE_ADDR']
             ];
-            // dd($data);
-    
+           
+            
             $options = array(
 
                 'http' => array(

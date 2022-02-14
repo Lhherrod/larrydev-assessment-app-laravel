@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
+        <meta name="description" content="Web Application Developer/Laravel">
+        <meta name='revised' content='Sunday, Febuary 13th, 2022, 12:00 am' >
         <meta name="robots" content="index, follow">
         <meta charset="utf-8">
         <meta name="csrf-token" content="{{ csrf_token() }}">

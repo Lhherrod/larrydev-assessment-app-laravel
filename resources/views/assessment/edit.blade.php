@@ -437,7 +437,7 @@
                                               
                                                 <template x-for="(picturefield, index) in picturefields" :key="picturefield.id">
                                                     <div x-data="imageViewer()">
-                                                        <div class="mb-2">
+                                                        <div class="mb-2" id="imageUrl">
         
                                                             {{-- x-if defines our {initField : initVariable} --}}
                                                             <template x-if="imageUrl">
@@ -474,7 +474,7 @@
 
                                                 <template x-for="(videofield, index) in videofields" :key="videofield.id">
                                                     <div x-data="imageViewer()">
-                                                        <div class="mb-2">
+                                                        <div class="mb-2" id="videoUrl">
         
                                                             {{-- x-if defines our {initField : initVariable} --}}
                                                             <template x-if="videoUrl">
@@ -613,13 +613,15 @@
                     // 100000 is 1 mb
                     
                     if (file.size > 3000000 ) {
-                        const pictureDiv = document.querySelector('#picture-div');
+                        this.imageUrl = null;
+                        const pictureDiv = document.querySelector('#imageUrl');
                         const p = document.createElement("p");
+                        p.style.color = "red";
                         p.innerHTML = "File size is too big maximum size 3MB";
                         setTimeout(hideElement, 3000)
 
                         function hideElement() {
-                            p.style.display = 'none'
+                            p.remove();
                         }
 
                         pictureDiv.appendChild(p);
@@ -630,13 +632,15 @@
 
                     } 
                     else if (file.type != "image/jpeg" && file.type != "image/png") {
-                        const pictureDiv = document.querySelector('#picture-div');
+                        this.imageUrl = null;
+                        const pictureDiv = document.querySelector('#imageUrl');
                         const p = document.createElement("p");
+                        p.style.color = "red";
                         p.innerHTML = "Only jpeg,png accepted";
                         setTimeout(hideElement, 3000)
 
                         function hideElement() {
-                            p.style.display = 'none'
+                            p.remove();
                         }
 
                         pictureDiv.appendChild(p);
@@ -665,13 +669,15 @@
                     // 100000 is 1 mb
 
                     if (file.size > 3000000 ) {
-                        var videoDiv = document.querySelector('#video-div');
+                        this.videoUrl = null;
+                        var videoDiv = document.querySelector('#videoUrl');
                         var p = document.createElement("p");
+                        p.style.color = "red";
                         p.innerHTML = "File size is too big maximum size 3MB";
                         setTimeout(hideElement, 3000)
 
                         function hideElement() {
-                            p.style.display = 'none'
+                            p.remove();
                         }
 
                         videoDiv.appendChild(p);
@@ -682,13 +688,15 @@
 
                     } 
                     else if (file.type != "video/mp4") {
-                        var videoDiv = document.querySelector('#video-div');
+                        this.videoUrl = null;
+                        var videoDiv = document.querySelector('#videoUrl');
                         var p = document.createElement("p");
+                        p.style.color = "red";
                         p.innerHTML = "Only mp4 accepted";
                         setTimeout(hideElement, 3000)
 
                         function hideElement() {
-                            p.style.display = 'none'
+                            p.remove();
                         }
 
                         videoDiv.appendChild(p);
