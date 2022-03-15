@@ -112,7 +112,7 @@
                         
                                         <x-button 
                                             class="ml-4 g-recaptcha"
-                                            data-sitekey="6LeWjGgeAAAAAKjWYLjIsOOK-47P7sDt-bwBoIqP" 
+                                            data-sitekey="6LeO1WAeAAAAALVcVyGS235lSsfo5FhqeETo9BKm" 
                                             data-callback='onSubmit' 
                                             data-action='contact'>
                                             {{ __('Submit') }}
