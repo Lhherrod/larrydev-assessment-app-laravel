@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Status;
+use App\Functions\GetStatus;
 use App\Http\Requests\UserUpdateRequest;
 use App\Services\UserService;
+use Illuminate\Http\RedirectResponse;
 
 class UserController extends Controller {
 
-    public function index () {
-        $user = auth()->user()->username;
-        $adminStatus = UserService::adminStatus();
-        $users = UserService::getAllUsers();
-        return view('users.index', compact('adminStatus', 'user', 'users'));
-    }
-
-    public function update (UserUpdateRequest $request, $user) {
+    public function update (UserUpdateRequest $request, $user): RedirectResponse {
         
-        if(auth()->user()->adminStatus != 1) {
+        if(auth()->user()->adminStatus == GetStatus::setStatus(Status::ADMIN_STATUS)) {
             die('YOU ARE NOT THE ADMIN!');
         }
 
@@ -24,8 +20,6 @@ class UserController extends Controller {
         
         return back();
        
-
     }
-
 
 }

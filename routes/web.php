@@ -1,12 +1,16 @@
 <?php
 
+use App\Enums\Status;
+use App\Functions\GetStatus;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
+use App\Services\AssessmentService;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Route;
-use Spatie\Honeypot\ProtectAgainstSpam;
+use Illuminate\View\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,48 +27,75 @@ Route::get('/', function () {
     return view('welcome');
 })->name('landing');
 
-
 Route::get('/contact', function () { 
     return view('contact'); 
 })->name('contact.index');
 
 Route::post('/contact', [ContactController::class, 'create'])
-->name('contact.create')
-->middleware('throttle:web');
-
-
-Route::get('/dashboard', function () {
-    $assessmentStatus = auth()->user()->assessmentStatus;
-    $assessmentCheckInStatus = auth()->user()->assessmentCheckInStatus;
-    return view('dashboard')->with(['assessmentStatus'=> $assessmentStatus, 'assessmentCheckInStatus' => $assessmentCheckInStatus]);
-})->name('dashboard')->middleware(['middleware' => 'auth', 'verified']);
-
-
-Route::get('/users', [UserController::class, 'index'])->middleware(['middleware' => 'auth', 'verified'])
-->name('users.index');
-
-Route::put('/users/{user}', [UserController::class, 'update'])
-->middleware(['middleware' => 'auth', 'verified'])
-->name('users.update');
+->middleware('throttle:web')
+->name('contact.create');
 
 
 Route::group(['middleware' => 'auth', 'verified'], function () {
+
+    Route::get('/dashboard', function () {
+        $assessmentStatus = Status::ASSESSMENT_STATUS;
+        $assessmentCheckInStatus = Status::ASSESSMENT_CHECK_IN_STATUS;
+        return view('dashboard')->with(['assessmentStatus'=> $assessmentStatus, 'assessmentCheckInStatus' => $assessmentCheckInStatus]);
+    })->name('dashboard');
+
+    Route::get('/users', function (): View {
+
+        $userAdminStatus = auth()->user()->adminStatus;
+        $users = UserService::getAllUsers();
+        $adminStatus = GetStatus::setStatus(Status::ADMIN_STATUS);
+        $assessmentStatus = GetStatus::setStatus(Status::ASSESSMENT_STATUS);
     
-    Route::get('/assessment', [AssessmentController::class, 'index'])->middleware(['middleware' => 'auth', 'verified'])->name('assessment.index');
+        return view('users.index')->with([
+            'userAdminStatus' => $userAdminStatus,
+            'users' => $users,
+            'adminStatus' => $adminStatus,
+            'assessmentStatus' => $assessmentStatus
+    
+        ]);
+    })->name('users.index');
+    
+    
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
-    Route::post('/assessment', [AssessmentController::class, 'store'])->middleware(['middleware' => 'auth', 'verified'])->name('assessment.store');
+    
+    Route::get('/assessment', function () {
+        $user = auth()->user()->username;
+        $assessmentStatus = GetStatus::setStatus(Status::ASSESSMENT_STATUS);
+        $assessmentCheckInStatus = GetStatus::setStatus(Status::ASSESSMENT_CHECK_IN_STATUS);
+        $checkAssessmentStatus = AssessmentService::getCheckAssessmentStatus();
+        $checkAssessmentCheckInStatus = AssessmentService::getAssessmentCheckInStatus();
 
-    Route::get('/assessment/{user}/edit', [AssessmentController::class, 'edit'])->name('assessment.edit')->middleware(['middleware' => 'auth', 'verified']);
+        return view('assessment.index')->with([
+            'user' => $user,
+            'assessmentStatus' => $assessmentStatus,
+            'assessmentCheckInStatus' => $assessmentCheckInStatus, 
+            'checkAssessmentStatus' => $checkAssessmentStatus, 
+            'checkAssessmentCheckInStatus' => $checkAssessmentCheckInStatus
+        ]);
+    })->name('assessment.index');
 
-    Route::put('/assessment/{user}/edit', [AssessmentController::class, 'update'])->middleware(['middleware' => 'auth', 'verified'])
-    ->name('assessment.update');
+
+    Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
+
+    Route::get('/assessment/{user}/edit', [AssessmentController::class, 'edit'])->name('assessment.edit');
+
+    Route::put('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');
+
+    Route::delete('/assessment/picture/{picture}', [ImageController::class, 'destroy']);
+
+    Route::delete('/assessment/video/{video}', [VideoController::class, 'destroy']);
 
 });
 
 
-Route::delete('/assessment/{picture}', [ImageController::class, 'destroy'])->middleware(['middleware' => 'auth', 'verified']);
-
-Route::delete('/assessment/video/{video}', [VideoController::class, 'destroy'])->middleware(['middleware' => 'auth', 'verified']);
-
+Route::fallback(function () {
+    abort(404);
+});
 
 require __DIR__.'/auth.php';

@@ -27,7 +27,7 @@ class ImageRequest extends FormRequest
             'imageName' => '',
             'imageName.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048',
             'videoName' => '',
-            'videoName.*' => 'mimetypes:video/avi,video/mpeg,video/quicktime|max:102400',
+            'videoName.*' => 'mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4,video/mpg|max:102400',
             // 'username'
         ];
     }

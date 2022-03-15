@@ -544,7 +544,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <form  method="POST" action="<?php  echo '/assessment/' .  $image->imageName ?>">
+                                    <form  method="POST" action="<?php  echo '/assessment/picture/' .  $image->imageName ?>">
                                         @csrf
                                         @method('delete')
                                         <x-button  type="submit" class="mt-4"> 

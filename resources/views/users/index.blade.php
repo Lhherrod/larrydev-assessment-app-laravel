@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-@if($adminStatus == 0) 
+@if($userAdminStatus == $adminStatus) 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -34,7 +34,7 @@
                                     <td>
                                         Check In Status :
                                         {{ $user->assessmentCheckInStatus }}
-                                        <form  method="POST" action="<?php  echo '/users/' .  $user->username ?>">
+                                        <form  method="POST" action="{{ route('users.update', $user->username) }}">
                                             @csrf
                                             @method('put')
                                             <select name="assessmentCheckInStatus" id="">
@@ -61,18 +61,18 @@
                                     <td>
                                         assessmentStatus :
                                         {{ $user->assessmentStatus}}
-                                        <form  method="POST" action="{{ route('assessment.update', ['user']) }}">
+                                        <form  method="POST" action="{{ route('users.update', $user->username) }}">
                                             @csrf
                                             @method('put')
                                             <select name="assessmentStatus" id="">
                                                 <option 
                                                 value="1"
-                                                <?php if($user->assessmentStatus == "1") echo 'selected="selected"'; ?>>
+                                                <?php if($user->assessmentStatus != $assessmentStatus) echo 'selected="selected"'; ?>>
                                                     1
                                                 </option>
                                                 <option 
                                                 value="0"
-                                                <?php if($user->assessmentStatus == "0") echo 'selected="selected"'; ?>>
+                                                <?php if($user->assessmentStatus == $assessmentStatus) echo 'selected="selected"'; ?>>
                                                     0
                                                 </option>
                                             </select>

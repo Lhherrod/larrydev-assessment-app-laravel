@@ -1,14 +1,19 @@
 <?php
 
 namespace App\Services;
+use App\Enums\Gcap;
+use App\Functions\Captcha;
+
 
 class ContactService {
 
-    private function captcha() {
+    
+    private function captcha(): bool {
+
         if(isset($_POST['g-recaptcha-response'])) {
-            $url = "https://www.google.com/recaptcha/api/siteverify";
+            $url = Captcha::captchaUrl(Gcap::GCapUrl);
             $data = [
-                'secret' => "6LeWjGgeAAAAAC-HXpeSmU_Y-vuladDSheSZkJWS",
+                'secret' =>  Captcha::captchaValue(Gcap::GCapValidation),
                 'response' => $_POST['g-recaptcha-response'],
                 'remoteip' => $_SERVER['REMOTE_ADDR']
             ];
@@ -39,6 +44,12 @@ class ContactService {
                 else if (isset($res['error_codes'])){
                     abort(404);
                 }
+                else {
+                    return true;
+                }
+            }
+            else {
+                abort(404);
             }
             
            

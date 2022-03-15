@@ -7,7 +7,7 @@ use App\Models\User;
 
 class AssessmentService {
 
-    private function checkAssessmentStatus () {
+    private function checkAssessmentStatus (): int {
         return auth()->user()->assessmentStatus;
     }
     
@@ -17,7 +17,7 @@ class AssessmentService {
     }
 
 
-    private function assessmentCheckInStatus () {
+    private function assessmentCheckInStatus (): int {
         return auth()->user()->assessmentCheckInStatus;
     }
 
@@ -51,6 +51,5 @@ class AssessmentService {
         $getUpdateAssessment = new AssessmentService;
         return $getUpdateAssessment->updateAssessment($request, $user);
     } 
-
 
 } 

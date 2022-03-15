@@ -19,18 +19,18 @@
             @if (Route::has('login'))
                 <div class=" fixed flex top-0 right-3 z-50 py-4 sm:py-4 ">
                     <a class="github text-[2rem] cursor" target="_blank" href="https://github.com/lhherrod"><i class="fab fa-github text-gray-500"></i></a>
-                    <div class="border border-gray-900 my-auto  h-7 mx-4"></div>
+                    <div class="border border-gray-500 my-auto  h-7 mx-4"></div>
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline my-auto mr-2">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}" class="  md:text-md text-gray-700 dark:text-gray-500 underline my-auto mr-2">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 my-auto underline">Log in</a>
+                        <a href="{{ route('login') }}" class=" text-sm md:text-lg lg:text-2xl text-gray-700 dark:text-gray-500 my-auto underline">Log in</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 my-auto underline">Register</a>
+                            <a href="{{ route('register') }}" class="ml-4 text-sm md:text-lg lg:text-2xl text-gray-700 dark:text-gray-500 my-auto underline">Register</a>
                         @endif
 
                     @endauth
-                    <a href="{{ route('contact.index') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline my-auto">Contact</a>
+                    <a href="{{ route('contact.index') }}" class="ml-4 text-sm md:text-lg lg:text-2xl  text-gray-700 dark:text-gray-500 underline my-auto">Contact</a>
                 </div>
             @endif
             <div id="overlay" class="mt-20">

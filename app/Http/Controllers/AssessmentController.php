@@ -14,17 +14,6 @@ use Illuminate\View\View;
 
 class AssessmentController extends Controller {
     
-    public function index(): View {   
-        
-        $user = auth()->user()->username;
-        $checkAssessmentStatus = AssessmentService::getCheckAssessmentStatus();
-        $assessmentCheckInStatus = AssessmentService::getAssessmentCheckInStatus();
-
-        return view('assessment.index', compact('checkAssessmentStatus', 'user', 'assessmentCheckInStatus'));
-
-    }
-
-
     public function store(AssessmentRequest $request ) {   
         
         Assessment::create($request->validated() + [
@@ -47,7 +36,6 @@ class AssessmentController extends Controller {
         
     }
 
-
     public function update(AssessmentUpdateRequest $request, ImageRequest $image, $user) {   
         
         
@@ -58,6 +46,5 @@ class AssessmentController extends Controller {
         return redirect('/assessment/' . $user . '/edit')->with('status', 'Assessment updated successfully.'); 
        
     }
-
 
 }

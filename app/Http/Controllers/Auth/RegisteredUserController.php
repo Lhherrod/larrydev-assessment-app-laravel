@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
     public function store(RegisteredUserRequest $request) {
         
         ContactService::getCaptcha();
-
+        
         $registeredUser = UserService::createUser($request);
 
         event(new Registered($registeredUser));
