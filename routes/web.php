@@ -29,15 +29,17 @@ Route::get('/', function () {
 
 Route::get('/contact', function () { 
     return view('contact'); 
-})->name('contact.index');
+})->name('contact');
+
+Route::get('/about', function () { 
+    return view('about'); 
+})->name('about');
 
 Route::post('/contact', [ContactController::class, 'create'])
 ->middleware('throttle:web')
 ->name('contact.create');
 
-
-Route::group(['middleware' => 'auth', 'verified'], function () {
-
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $assessmentStatus = Status::ASSESSMENT_STATUS;
         $assessmentCheckInStatus = Status::ASSESSMENT_CHECK_IN_STATUS;
@@ -45,7 +47,6 @@ Route::group(['middleware' => 'auth', 'verified'], function () {
     })->name('dashboard');
 
     Route::get('/users', function (): View {
-
         $userAdminStatus = auth()->user()->adminStatus;
         $users = UserService::getAllUsers();
         $adminStatus = GetStatus::setStatus(Status::ADMIN_STATUS);
@@ -59,11 +60,8 @@ Route::group(['middleware' => 'auth', 'verified'], function () {
     
         ]);
     })->name('users.index');
-    
-    
-    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
-    
+    Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::get('/assessment', function () {
         $user = auth()->user()->username;
         $assessmentStatus = GetStatus::setStatus(Status::ASSESSMENT_STATUS);
@@ -79,18 +77,11 @@ Route::group(['middleware' => 'auth', 'verified'], function () {
             'checkAssessmentCheckInStatus' => $checkAssessmentCheckInStatus
         ]);
     })->name('assessment.index');
-
-
     Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
-
     Route::get('/assessment/{user}/edit', [AssessmentController::class, 'edit'])->name('assessment.edit');
-
-    Route::put('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');
-
+    Route::patch('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');
     Route::delete('/assessment/picture/{picture}', [ImageController::class, 'destroy']);
-
     Route::delete('/assessment/video/{video}', [VideoController::class, 'destroy']);
-
 });
 
 

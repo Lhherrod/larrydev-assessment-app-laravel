@@ -12,21 +12,17 @@ use Illuminate\Support\Facades\Auth;
 
 class RegisteredUserController extends Controller
 {
-
-    public function create() {
+    public function create() 
+    {
         return view('auth.register');
     }
 
-    public function store(RegisteredUserRequest $request) {
-        
+    public function store(RegisteredUserRequest $request) 
+    {
         ContactService::getCaptcha();
-        
-        $registeredUser = UserService::createUser($request);
-
-        event(new Registered($registeredUser));
-
-        Auth::login($registeredUser);
-
+        $registeredUser = new UserService($request);
+        (new Registered($registeredUser));
+        Auth::login($registeredUser->getCreatedUser());
         return redirect(RouteServiceProvider::HOME);
     }
 }

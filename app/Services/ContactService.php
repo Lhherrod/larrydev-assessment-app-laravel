@@ -6,10 +6,7 @@ use App\Functions\Captcha;
 
 
 class ContactService {
-
-    
     private function captcha(): bool {
-
         if(isset($_POST['g-recaptcha-response'])) {
             $url = Captcha::captchaUrl(Gcap::GCapUrl);
             $data = [
@@ -17,8 +14,6 @@ class ContactService {
                 'response' => $_POST['g-recaptcha-response'],
                 'remoteip' => $_SERVER['REMOTE_ADDR']
             ];
-           
-            
             $options = array(
 
                 'http' => array(
@@ -52,7 +47,6 @@ class ContactService {
                 abort(404);
             }
             
-           
         }
         else {
             abort(404);
@@ -63,5 +57,4 @@ class ContactService {
         $getCaptcha = new ContactService;
         return $getCaptcha->captcha();
     }
-
 } 

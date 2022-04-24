@@ -36,7 +36,7 @@
                                         {{ $user->assessmentCheckInStatus }}
                                         <form  method="POST" action="{{ route('users.update', $user->username) }}">
                                             @csrf
-                                            @method('put')
+                                            @method('patch')
                                             <select name="assessmentCheckInStatus" id="">
                                                 <option 
                                                     value="1"

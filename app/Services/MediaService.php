@@ -4,17 +4,10 @@ namespace App\Services;
 
 use App\Models\Image;
 use App\Models\Video;
-
 use Illuminate\Support\Facades\Auth;
 
 class MediaService  {
-    
-    public function __construct() {
-        
-    }
-
     private function updateImage ($request) {
-
         if($request->hasfile('imageName')) {
             foreach($request->file('imageName') as $file) {   
                 $image = new Image();
@@ -23,10 +16,8 @@ class MediaService  {
                 $image->imageName = $fileName;
                 $image->imagePath = $fileName;
                 $image->userName = Auth::user()->username;
-                
                 $image->save();
-            }
-            
+            } 
         }
     }
 
@@ -35,10 +26,7 @@ class MediaService  {
         return $getUpdateImage->updateImage($request);
     }
 
-
-
     private function updateVideo ($request) {
-       
         if($request->hasfile('videoName')) {
             foreach($request->file('videoName') as $videoFile) {   
                 $video = new Video();
@@ -47,10 +35,8 @@ class MediaService  {
                 $video->videoName = $fileName;
                 $video->videoPath = $fileName;
                 $video->userName = Auth::user()->username;
-                
                 $video->save();
             }
-            
         }
     }
 
@@ -58,5 +44,4 @@ class MediaService  {
         $getUpdateVideo = new MediaService;
         return $getUpdateVideo->updateVideo($request);
     }
-
 }

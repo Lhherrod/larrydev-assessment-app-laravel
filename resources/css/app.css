@@ -6,35 +6,11 @@
     scroll-behavior: smooth;
 }
 
-.body {
+.welcome_background {
     background-image: url("/storage/images/php_collage.png");
     background-repeat: no-repeat;
     background-size: cover;
     font-family: despairs;
-    /* span code picture full length */
     background-attachment: fixed;
 }
 
-.content {
-    position: relative;
-    margin: 0 auto;
-    width: 80%;
-    
-}
-
-.content:before {
-    content: '';
-    position: fixed;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
-
-.content video {
-    display: block;
-    margin: 50px auto 0 auto;
-}

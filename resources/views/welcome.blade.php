@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta name="description" content="Web Application Developer/Laravel">
-        <meta name='revised' content='Sunday, Febuary 13th, 2022, 12:00 am' >
+        <meta name="description" content="Web Application Developer/Laravel The Web application assessment app by LarryDev Shop web applications to fit your everyday needs.">
+        <meta name='revised' content='Sunday, April 30th, 2022, 12:00 am' >
         <meta name="robots" content="index, follow">
         <meta charset="utf-8">
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -14,37 +14,30 @@
         <link rel="icon"  href="https://larrydev.com/favicon.ico" type="image/x-icon">
         <title>{{ config('app.name') }}</title>
     </head>
-    <body class="antialiased body">
-        <section>
-            @if (Route::has('login'))
-                <div class=" fixed flex top-0 right-3 z-50 py-4 sm:py-4 ">
-                    <a class="github text-[2rem] cursor" target="_blank" href="https://github.com/lhherrod"><i class="fab fa-github text-gray-500"></i></a>
-                    <div class="border border-gray-500 my-auto  h-7 mx-4"></div>
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="  md:text-md text-gray-700 dark:text-gray-500 underline my-auto mr-2">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class=" text-sm md:text-lg lg:text-2xl text-gray-700 dark:text-gray-500 my-auto underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm md:text-lg lg:text-2xl text-gray-700 dark:text-gray-500 my-auto underline">Register</a>
-                        @endif
-
-                    @endauth
-                    <a href="{{ route('contact.index') }}" class="ml-4 text-sm md:text-lg lg:text-2xl  text-gray-700 dark:text-gray-500 underline my-auto">Contact</a>
-                </div>
-            @endif
-            <div id="overlay" class="mt-20">
+    <body class="welcome_background">
+        <header class="mt-2">
+            <nav class="justify-center flex">
+                <a class="github text-[2rem] cursor" target="_blank" href="https://github.com/lhherrod"><i class="fab fa-github text-gray-500"></i></a>
+                <div class="border border-gray-500 my-auto h-7 mx-4"></div>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="md:text-md text-gray-700 dark:text-gray-500 underline my-auto mr-2">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}" class="text-sm md:text-lg lg:text-2xl text-gray-700 dark:text-gray-500 my-auto underline">Log in</a>
+                    <a href="{{ route('register') }}" class="ml-4 text-sm md:text-lg lg:text-2xl text-gray-700 dark:text-gray-500 my-auto underline">Register</a>
+                @endauth
+                <a href="{{ route('contact') }}" class="ml-4 text-sm md:text-lg lg:text-2xl text-gray-700 dark:text-gray-500 underline my-auto">Contact</a>
+                <a href="{{ route('about') }}" class="ml-4 text-sm md:text-lg lg:text-2xl text-gray-700 dark:text-gray-500 underline my-auto">About</a>
+            </nav>
+        </header>
+        <section class=" bg-[#103] mx-auto">
+            <div class="my-auto bg-red-500 h-full">
                 <div class="content" class="mt-10">
-                    
                     <div class="top_div">
-                    
-                        <h1 class="text-black mt-4 w-full sm:text-5xl lg:text-7xl  opacity-50 bg-white absolute top-[3rem] sm:bg-white sm:text-2  sm:top-1/2">
+                        <h1 class="text-black mt-4 w-full sm:text-5xl lg:text-7xl opacity-50 bg-white absolute top-[3rem] sm:bg-white sm:text-2 sm:top-1/2">
                             {{ config('app.name') }}
                         </h1>
                         <video autoplay muted loop id="player" src="{{ asset('/storage/videos/webdevvideo.mp4') }}" type="video/mp4"></video>
-                    
                     </div>
-                    
                 </div>
             </div>
         </section>

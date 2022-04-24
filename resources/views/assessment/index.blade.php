@@ -4,21 +4,18 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Assessment') }}
         </h2>
-    </x-slot>
-    
+    </x-slot>  
     @if (!$checkAssessmentStatus == $assessmentStatus)
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <x-auth-session-status class="mb-4" :status="session('status')" />
-
-                    You have already completed the assessment please visit <a href="<?php echo '/assessment/' . $user . '/' . 'edit' ?>">Here</a> to edit your assessment.
+                    You have already completed the assessment please visit <a href="@php echo '/assessment/' . strtolower($user) . '/' . 'edit' @endphp">Here</a> to edit your assessment.
                 </div>
-            </div><img src="<?php echo '/' ?>" alt="">
+            </div><img src="@php echo '/' @endphp" alt="">
         </div>
     </div>
-
     @elseif ($checkAssessmentCheckInStatus == $assessmentCheckInStatus)
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -30,7 +27,6 @@
         </div>
     </div>
     @else
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -38,20 +34,16 @@
                     This is your Assessment.
 
                     <br />
-                        
-                       
                     <div class="mt-4" name="logo">
                         <a href="/">
                             <x-application-logo class="w-10 h-10 fill-current text-gray-500" />
                         </a>
                     </div>
-                
-                    <!-- Validation Errors -->
+            
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
                 
                     <form method="POST" action="{{ route('assessment.store') }}">
                         @csrf
-                        
                         <div class="mt-4">
                             <x-label 
                                 for="as_ws_pages" 
@@ -69,13 +61,9 @@
                                 placeholder=" What pages do you want? Ex: Homepage, Aboutus Page, Pages for Products/Services that you offer … etc"
                                 required autofocus 
                             />
-
                         </div>
             
                         <div class="mt-4" x-data="{show: false}">
-
-                            
-
                             <x-label 
                                 for="as_ws_styles" 
                                 :value="__('2. Website Style')" 
@@ -89,9 +77,10 @@
                                 name="as_ws_styles"
                                 type="radio"
                                 value="yes"
-                            />yes
-                            
+                            />
 
+                            yes
+                            
                             <input
                                 {{ old("as_ws_styles") == 'no' ? 'checked' : ''}}
                                 @click="show = false"
@@ -100,10 +89,11 @@
                                 type="radio"
                                 value="no"
                                 
-                            />no
+                            />
+                            
+                            no
                             
                             <x-input
-                                
                                 x-show="show"
                                 id="as_ws_styles_text"
                                 @click.away="show = false"
@@ -114,17 +104,9 @@
                                 placeholder="or do you like a particular website's layout or style, and can provide website link(s) to show as an example?"
                                 autofocus 
                             />
-                            
-                            
-
                         </div> 
 
-                        
-
                         <div class="mt-4" x-data="{show: false }">
-
-                                
-
                             <x-label 
                                 for="as_ws_functions" 
                                 :value="__('3. Website Functions')" 
@@ -138,7 +120,9 @@
                                 name="as_ws_functions"
                                 type="radio"
                                 value="yes"
-                            />yes
+                            />
+                            
+                            yes
 
                             <input
                                 {{ old("as_ws_functions") == 'no' ? 'checked' : ''}}
@@ -148,10 +132,11 @@
                                 type="radio"
                                 value="no"
                                 
-                            />no
+                            />
+                            
+                            no
 
                             <x-input 
-                                
                                 x-show="show"
                                 @click.away="show = false"
                                 class="block mt-1 w-full" 
@@ -162,14 +147,9 @@
                                 placeholder=" Website Functions"
                                 autofocus 
                             />
-                            
-
                         </div>
                         
                         <div class="mt-4" x-data="{show: false }">
-
-                                
-
                             <x-label 
                                 for="as_ws_budget" 
                                 :value="__('4. Website Budget')" 
@@ -183,7 +163,9 @@
                                 name="as_ws_budget"
                                 type="radio"
                                 value="yes"
-                            />yes
+                            />
+                            
+                            yes
 
                             <input
                                 {{ old("as_ws_budget") == 'yes' ? 'checked' : ''}} 
@@ -192,11 +174,11 @@
                                 onclick="document.getElementById('as_ws_budget_text').value = ''" 
                                 type="radio"
                                 value="no"
-                                
-                            />no
+                            />
+                            
+                            no
 
                             <x-input 
-                                
                                 x-show="show"
                                 @click.away="show = false"
                                 class="block mt-1 w-full" 
@@ -207,14 +189,9 @@
                                 placeholder="$"
                                 autofocus 
                             />
-                            
-
                         </div> 
 
                         <div class="mt-4" x-data="{show: false }">
-
-                            
-
                             <x-label 
                                 for="as_ws_timeframe" 
                                 :value="__('5. Website Timeframe')" 
@@ -228,7 +205,9 @@
                                 name="as_ws_timeframe"
                                 type="radio"
                                 value="yes"
-                            />yes
+                            />
+                            
+                            yes
 
                             <input
                                 {{ old("as_ws_timeframe") == 'no' ? 'checked' : ''}} 
@@ -237,11 +216,11 @@
                                 onclick="document.getElementById('as_ws_timeframe_text').value = ''" 
                                 type="radio"
                                 value="no"
-                                
-                            />no
+                            />
+                            
+                            no
 
                             <x-input 
-                                
                                 x-show="show"
                                 @click.away="show = false"
                                 class="block mt-1 w-full" 
@@ -252,20 +231,17 @@
                                 placeholder=" Website Timeframe?"
                                 autofocus 
                             />
-                            
-
                         </div> 
 
                         <div class="mt-4" x-data="{show: false }">
-
-                            
-
                             <x-label 
                                 for="as_ws_hosting" 
                                 :value="__('6. Website Hosting')" 
                             /> 
 
-                            Do You need hosting?<br>
+                            Do You need hosting?
+                            
+                            <br>
 
                             <input
                                 @click="show = true"
@@ -274,7 +250,9 @@
                                 name="as_ws_hosting"
                                 type="radio"
                                 value="yes"
-                            />yes
+                            />
+                            
+                            yes
 
                             <input 
                                 {{ old("as_ws_hosting") == 'no' ? 'checked' : ''}}
@@ -283,16 +261,11 @@
                                 type="radio"
                                 value="no"
                                 
-                            />no
-
-                            
-
+                            />
+                            no
                         </div> 
 
                         <div class="mt-4" x-data="{show: false }">
-
-                            
-
                             <x-label 
                                 for="as_ws_domain" 
                                 :value="__('7. Website Domain')" 
@@ -316,16 +289,11 @@
                                 type="radio"
                                 value="no"
                                 
-                            />no
-
-                            
-                            
-
+                            />
+                            no
                         </div> 
 
                         <div class="mt-4" x-data="{show: false }">
-
-                            
                             <x-label 
                                 for="as_ws_content" 
                                 :value="__('8. Website Content')" 
@@ -339,7 +307,9 @@
                                 name="as_ws_content"
                                 type="radio"
                                 value="yes"
-                            />yes
+                            />
+                            
+                            yes
 
                             <input 
                                 {{ old("as_ws_content") == 'no' ? 'checked' : ''}}
@@ -349,10 +319,11 @@
                                 type="radio"
                                 value="no"
                                 
-                            />no
+                            />
+                            
+                            no
 
                             <x-input 
-                                
                                 x-show="show"
                                 class="block mt-1 w-full" 
                                 id="as_ws_content_text"
@@ -366,17 +337,12 @@
                             <span x-show="show" class="block font-medium text-sm text-gray-700">
                                 you will have an opportunity to upload media upon completion of the assessment
                             </span> 
-                            
-
                         </div> 
 
-                        
                         <div class="flex items-center justify-end mt-4">
                             <x-button class="ml-4">{{ __('Submit') }}</x-button>
                         </div>
-
                     </form>
-                    
                 </div>
             </div>
         </div>
