@@ -17,11 +17,13 @@ class HashPasswordService
         return $this->unHashedPassword;
     }
 
-    private function hashPassword(): string {
+    private function hashPassword(): string
+    {
         return $this->unHashedPassword;
     }
 
-    public function getHashedPassword (): string {
+    public function getHashedPassword (): string
+    {
         return $this->hashPassword();
     }
 }

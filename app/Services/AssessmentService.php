@@ -5,51 +5,57 @@ namespace App\Services;
 use App\Models\Assessment;
 use App\Models\User;
 
-class AssessmentService {
-
-    private function checkAssessmentStatus (): int {
+class AssessmentService
+{
+    private function checkAssessmentStatus (): int
+    {
         return auth()->user()->assessmentStatus;
     }
-    
-    static function getCheckAssessmentStatus () {
+
+    static function getCheckAssessmentStatus ()
+    {
         $getCheckAssessmentStatus = new AssessmentService;
         return $getCheckAssessmentStatus->checkAssessmentStatus();
     }
 
 
-    private function assessmentCheckInStatus (): int {
+    private function assessmentCheckInStatus (): int
+    {
         return auth()->user()->assessmentCheckInStatus;
     }
 
-    static function getAssessmentCheckInStatus () {
+    static function getAssessmentCheckInStatus ()
+    {
         $getAssessmentCheckInStatus = new AssessmentService;
         return $getAssessmentCheckInStatus->assessmentCheckInStatus();
-    } 
+    }
 
 
-    private function updateAssessmentStatus() {
+    private function updateAssessmentStatus()
+    {
         return User::where('username', auth()->user()->username)->update(array('assessmentStatus' => 1));
     }
 
-    static function getUpdateAssessmentStatus() {
+    static function getUpdateAssessmentStatus()
+    {
       $getUpdateAssessmentStatus = new AssessmentService;
       return $getUpdateAssessmentStatus->updateAssessmentStatus();
     }
-    
 
-    private function updateAssessment ($request, $user) {
-        $assessmentUpdate = new Assessment();
 
+    private function updateAssessment ($request, $user)
+    {
+        $assessmentUpdate = new Assessment;
         $assessmentUpdate->where('username', $user)->update($request->validated() + [
             'username' => auth()->user()->username
         ]);
-
         return $assessmentUpdate;
     }
 
-    static function getUpdateAssessment ($request, $user) {
+    static function getUpdateAssessment ($request, $user)
+    {
         $getUpdateAssessment = new AssessmentService;
         return $getUpdateAssessment->updateAssessment($request, $user);
-    } 
+    }
 
-} 
+}

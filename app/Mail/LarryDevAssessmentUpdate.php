@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class HelloMail extends Mailable
+class LarryDevAssessmentUpdate extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,6 +28,6 @@ class HelloMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.hello');
+        return $this->markdown('emails.larrydev');
     }
 }

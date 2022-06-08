@@ -27,6 +27,8 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    'GOOGLE_CAPTCHA_SECRET' => env('GOOGLE_CAPTCHA_SECRET'),
+    'GOOGLE_CAPTCHA_SITE_KEY' => env('GOOGLE_CAPTCHA_SITE_KEY'),
 
     /*
     |--------------------------------------------------------------------------

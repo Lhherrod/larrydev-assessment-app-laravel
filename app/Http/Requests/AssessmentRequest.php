@@ -36,7 +36,6 @@ class AssessmentRequest extends FormRequest
             'as_ws_hosting' => ['required'],
             'as_ws_domain' => ['required'],
             'as_ws_content' => ['required'],
-            
         ];
     }
 }

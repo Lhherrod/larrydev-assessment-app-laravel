@@ -6,10 +6,9 @@ use App\Models\Video;
 
 class VideoController extends Controller
 {
-    public function destroy ($video) {
-        Video::where('videoName', $video)->firstOrFail();
-        $video = new Video;
-        $video->where('videoName', $video)->delete();
-        return back();
+    public function destroy (Video $video)
+    {
+        Video::where('videoName', $video->videoName)->delete();
+        return back()->with('status', 'video deleted successfully..');
     }
 }
