@@ -20,7 +20,6 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.login');
     }
-
     /**
      * Handle an incoming authentication request.
      *
@@ -29,15 +28,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        GoogleCaptchaService::GetCaptchaResponse($request->input('g-recaptcha-response'));
-
+        $google_captcha_check = new GoogleCaptchaService(implode($request->safe()->only('g-recaptcha-response')));
+        if($google_captcha_check->checkCaptchaResponse() !== true){
+            return back()->with('status', 'an error occurred...please try again, thank you.');
+        }
         $request->authenticate();
-
         $request->session()->regenerate();
-
         return redirect()->intended(RouteServiceProvider::HOME);
     }
-
     /**
      * Destroy an authenticated session.
      *
@@ -47,11 +45,8 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
         return redirect('/');
     }
 }

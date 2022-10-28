@@ -37,7 +37,7 @@ Route::group(['namespace'  => 'App\Actions'], function () {
     ->middleware('throttle:web');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::group(['middleware' => ['auth', 'verified']], (function () {
     Route::group(['namespace' => 'App\Actions'], function () {
         Route::get('/dashboard', 'DashboardAction')
         ->name('dashboard');
@@ -60,7 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');
     Route::delete('/assessment/picture/{picture}', [ImageController::class, 'destroy'])->name('image.destroy');
     Route::delete('/assessment/video/{video}', [VideoController::class, 'destroy'])->name('video.destroy');
-});
+}));
 
 Route::fallback(function () {
     abort(404);

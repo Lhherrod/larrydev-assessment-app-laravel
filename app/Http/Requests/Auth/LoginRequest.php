@@ -20,7 +20,6 @@ class LoginRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -34,7 +33,6 @@ class LoginRequest extends FormRequest
             'g-recaptcha-response' => ['required', 'string']
         ];
     }
-
     /**
      * Attempt to authenticate the request's credentials.
      *
@@ -50,13 +48,12 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'username' => __('auth.failed'),
+                'username' => trans('auth.failed'),
             ]);
         }
 
         RateLimiter::clear($this->throttleKey());
     }
-
     /**
      * Ensure the login request is not rate limited.
      *
@@ -66,7 +63,7 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited()
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 3)) {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -81,7 +78,6 @@ class LoginRequest extends FormRequest
             ]),
         ]);
     }
-
     /**
      * Get the rate limiting throttle key for the request.
      *
@@ -89,6 +85,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey()
     {
-        return Str::lower($this->input('username')).'|'.$this->ip();
+        return Str::transliterate(Str::lower($this->input('username')).'|'.$this->ip());
     }
 }

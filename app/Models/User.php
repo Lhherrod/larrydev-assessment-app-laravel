@@ -12,8 +12,8 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $primaryKey = 'username';
-    protected $keyType = 'string';
+    // protected $primaryKey = 'username';
+    // protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -27,9 +27,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'assessmentStatus',
         'assessmentCheckInStatus',
-        'adminStatus'
+        'adminStatus',
+        'g-recaptcha-repsonse'
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -39,7 +39,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
     ];
-
     /**
      * The attributes that should be cast.
      *
