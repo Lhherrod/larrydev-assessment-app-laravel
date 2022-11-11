@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    @if(auth()->user()->assessmentCheckInStatus === $assessmentCheckInStatus)
+    @if(auth()->user()->assessmentCheckInStatus === 0)
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-    @elseif (auth()->user()->assessmentStatus === $assessmentStatus)
+    @elseif (auth()->user()->assessmentStatus === 0)
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

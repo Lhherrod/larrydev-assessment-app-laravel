@@ -14,18 +14,18 @@
                 </a>
             </x-slot>
             <x-auth-session-status class="mb-4" :status="session('status')" />
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            <x-input-error :messages="$errors->all()" class="mt-2" />
             <form method="POST" action="{{ route('login') }}" id="demo-form">
                 @csrf
                 @honeypot
                 <div>
-                    <x-label for="username" :value="__('Username')" />
+                    <x-input-label for="username" :value="__('Username')" />
 
-                    <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
+                    <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
                 </div>
                 <div class="mt-4">
-                    <x-label for="password" :value="__('Password')" />
-                    <x-input id="password" class="block mt-1 w-full"
+                    <x-input-label for="password" :value="__('Password')" />
+                    <x-text-input id="password" class="block mt-1 w-full"
                         type="password"
                         name="password"
                         required autocomplete="current-password"
@@ -43,13 +43,13 @@
                             {{ __('Forgot your password?') }}
                         </a>
                     @endif
-                    <x-button
+                    <x-primary-button
                         class="ml-4 g-recaptcha"
                         data-sitekey="{{ config('app.GOOGLE_CAPTCHA_SITE_KEY') }}"
                         data-callback='onSubmit'
                         data-action='login'>
                         {{ __('Login') }}
-                    </x-button>
+                    </x-primary-button>
                 </div>
             </form>
         </x-auth-card>

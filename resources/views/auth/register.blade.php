@@ -14,35 +14,35 @@
                 </a>
             </x-slot>
             <x-auth-session-status class="mb-4" :status="session('status')" />
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            <x-input-error :messages="$errors->all()" class="mt-2" />
             <form method="POST" action="{{ route('register') }}" id="demo-form">
                 @csrf
                 @honeypot
                 <div>
-                    <x-label for="name" :value="__('Name')" />
+                    <x-input-label for="name" :value="__('Name')" />
 
-                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
                 </div>
                 <div class="mt-4">
-                    <x-label for="username" :value="__('Username')" />
+                    <x-input-label for="username" :value="__('Username')" />
 
-                    <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
+                    <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
                 </div>
                 <div class="mt-4">
-                    <x-label for="email" :value="__('Email')" />
+                    <x-input-label for="email" :value="__('Email')" />
 
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
                 </div>
                 <div class="mt-4">
-                    <x-label for="password" :value="__('Password')" />
-                    <x-input id="password" class="block mt-1 w-full"
+                    <x-input-label for="password" :value="__('Password')" />
+                    <x-text-input id="password" class="block mt-1 w-full"
                         type="password"
                         name="password"
                         required autocomplete="new-password" />
                 </div>
                 <div class="mt-4">
-                    <x-label for="password_confirmation" :value="__('Confirm Password')" />
-                    <x-input id="password_confirmation" class="block mt-1 w-full"
+                    <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                    <x-text-input id="password_confirmation" class="block mt-1 w-full"
                         type="password"
                         name="password_confirmation" required />
                 </div>
@@ -50,13 +50,13 @@
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                         {{ __('Already registered?') }}
                     </a>
-                    <x-button
+                    <x-primary-button
                         class="ml-4 g-recaptcha"
                         data-sitekey="{{ config('app.GOOGLE_CAPTCHA_SITE_KEY') }}"
                         data-callback='onSubmit'
                         data-action='register'>
                         {{ __('Register') }}
-                </x-button>
+                </x-primary-button>
                 </div>
             </form>
         </x-auth-card>
