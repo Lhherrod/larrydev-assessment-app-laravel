@@ -14,7 +14,7 @@ class UserAction
 
     public function asController(): View
     {
-        $users = UserService::getAllUsers();
+        $users = \App\Models\User::all();
         $assessmentStatus = GetStatus::setStatus(Status::ASSESSMENT_STATUS_ZERO);
         return view('users.index')->with([
             'users' => $users,

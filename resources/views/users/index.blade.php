@@ -21,16 +21,17 @@
                                     {{ $user->assessmentCheckInStatus }}
                                     <form  method="POST" action="{{ route('users.update', $user->username) }}">
                                         @csrf
-                                        @method('patch')
-                                        <select name="assessmentCheckInStatus" id="">
+                                        @method('PATCH')
+                                        <select name="assessmentCheckInStatus">
                                             <option
                                                 value="1"
-                                                <?php if($user->assessmentCheckInStatus == "1") echo 'selected="selected"'; ?>>
+                                                @if($user->assessmentCheckInStatus === 1) {{ 'selected="selected"' }} @endif >
+                                                {{-- <?php if($user->assessmentCheckInStatus === 1) echo 'selected="selected"'; ?>> --}}
                                                 1
                                             </option>
                                             <option
                                                 value="0"
-                                                <?php if($user->assessmentCheckInStatus == "0") echo 'selected="selected"'; ?>>
+                                                <?php if($user->assessmentCheckInStatus == 0) echo 'selected="selected"'; ?>>
                                                 0
                                             </option>
                                         </select>
