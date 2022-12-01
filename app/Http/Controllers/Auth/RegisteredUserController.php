@@ -21,7 +21,7 @@ class RegisteredUserController extends Controller
     public function store(RegisteredUserRequest $request): RedirectResponse
     {
         $google_captcha_check = new GoogleCaptchaService(implode($request->safe()->only('g-recaptcha-response')));
-        if($google_captcha_check->checkCaptchaResponse() !== true){
+        if($google_captcha_check->getCaptchaResponse() !== true){
             return back()->with('status', 'an error occurred...please try again, thank you.');
         }
         $user = new RegisteredUserService($request->validated());

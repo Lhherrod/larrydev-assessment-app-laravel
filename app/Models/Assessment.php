@@ -24,6 +24,4 @@ class Assessment extends Model
         'as_ws_content',
         'username'
     ];
-
-
 }

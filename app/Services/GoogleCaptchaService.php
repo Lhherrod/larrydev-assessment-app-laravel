@@ -13,7 +13,7 @@ class GoogleCaptchaService
     {
         return $this->g_recaptcha_response = $g_recaptcha_response;
     }
-    public function checkCaptchaResponse(): bool | Response
+    public function getCaptchaResponse(): bool | Response
     {
         if(!empty($this->g_recaptcha_response)) {
             $response = Http::asForm()->post(config('app.GOOGLE_CAPTCHA_URL'), [
@@ -21,6 +21,7 @@ class GoogleCaptchaService
                 'response' => $this->g_recaptcha_response,
                 'remoteid' => $_SERVER['REMOTE_ADDR']
             ]);
+            
             $google_response = json_decode($response->getBody()->getContents(),true);
             if(!empty($google_response['score']) && $google_response['score'] > 0.5 && $google_response['success'] === true) {
                 return true;

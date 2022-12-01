@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,13 +47,12 @@ Route::group(['middleware' => ['auth', 'verified']], (function () {
         Route::get('/users', 'UserAction')
         ->name('users.index')
         ->can('create', 'App\Models\User');
+
+        Route::patch('/users/{user}', 'UpdateUserAction')
+        ->name('users.update')
+        ->middleware('can:viewAny,App\Models\User');
     });
 
-    Route::patch('/users/{user}', [UserController::class, 'update'])
-    ->name('users.update')
-    ->can('create', 'App\Models\User');
-
-    Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
     Route::get('/assessment/{user}/edit', [AssessmentController::class, 'edit'])->name('assessment.edit');
     Route::patch('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');

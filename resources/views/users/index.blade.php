@@ -26,12 +26,11 @@
                                             <option
                                                 value="1"
                                                 @if($user->assessmentCheckInStatus === 1) {{ 'selected="selected"' }} @endif >
-                                                {{-- <?php if($user->assessmentCheckInStatus === 1) echo 'selected="selected"'; ?>> --}}
                                                 1
                                             </option>
                                             <option
                                                 value="0"
-                                                <?php if($user->assessmentCheckInStatus == 0) echo 'selected="selected"'; ?>>
+                                                @if($user->assessmentCheckInStatus === 0) {{ 'selected="selected"' }} @endif >
                                                 0
                                             </option>
                                         </select>
@@ -45,19 +44,18 @@
                                 <td>
                                     assessmentStatus :
                                     {{ $user->assessmentStatus}}
-                                    <form  method="POST" action="{{ route('users.update', $user->username) }}">
+                                    <form method="POST" action="{{ route('users.update', $user->username) }}">
                                         @csrf
                                         @method('patch')
-                                        <select name="assessmentStatus" id="">
+                                        <select name="assessmentStatus">
                                             <option
                                             value="1"
-                                            <?php if($user->assessmentStatus != $assessmentStatus) echo 'selected="selected"'; ?>>
+                                            @if($user->assessmentStatus === 1) {{ 'selected="selected"' }} @endif>
                                                 1
                                             </option>
                                             <option
                                             value="0"
-                                            <?php if($user->assessmentStatus == $assessmentStatus) echo 'selected="selected"'; ?>>
-                                                0
+                                            @if($user->assessmentStatus === 0) {{ 'selected="selected"' }} @endif>                                                0
                                             </option>
                                         </select>
                                         <x-button type="submit" class="mt-4">
