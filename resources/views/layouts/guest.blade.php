@@ -8,26 +8,30 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
+<<<<<<< HEAD
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+=======
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+>>>>>>> master/master
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-
-        <script src="https://www.google.com/recaptcha/api.js"></script>
-        
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body>
-        <div class="font-sans text-gray-900 antialiased">
-            {{ $slot }}
-        </div>
+    <body class="font-sans text-gray-900 antialiased">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
+            <div>
+                <a href="/">
+                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                </a>
+            </div>
 
-        <script>
-            function onSubmit(token) {
-              document.getElementById("demo-form").submit();
-            }
-        </script>
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+                {{ $slot }}
+            </div>
+        </div>
     </body>
 </html>
