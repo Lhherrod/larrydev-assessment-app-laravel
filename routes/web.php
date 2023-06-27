@@ -1,12 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-use App\Http\Controllers\AssessmentController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\VideoController;
-=======
 use App\Http\Controllers\ProfileController;
->>>>>>> master/master
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,10 +56,6 @@ Route::group(['middleware' => ['auth', 'verified']], (function () {
     Route::delete('/assessment/video/{video}', [VideoController::class, 'destroy'])->name('video.destroy');
 }));
 
-Route::fallback(function () {
-    abort(404);
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -74,6 +64,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::fallback(function () {
+    abort(404);
 });
 
 require __DIR__.'/auth.php';

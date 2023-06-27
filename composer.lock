@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "3ee968252a127c849442b83f66fe58f2",
-=======
-    "content-hash": "795c650737f35492ff76b67ee1940db3",
->>>>>>> master/master
+    "content-hash": "e8ae47db5c2b7b8a43d8edafa6cb78cc",
     "packages": [
         {
             "name": "brick/math",
@@ -895,19 +891,6 @@
             "time": "2023-04-17T16:11:26+00:00"
         },
         {
-<<<<<<< HEAD
-            "name": "laravel/framework",
-            "version": "v9.39.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "67e674709e1e7db14f304a871481f310822d68c5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/67e674709e1e7db14f304a871481f310822d68c5",
-                "reference": "67e674709e1e7db14f304a871481f310822d68c5",
-=======
             "name": "guzzlehttp/uri-template",
             "version": "v1.0.1",
             "source": {
@@ -919,7 +902,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/guzzle/uri-template/zipball/b945d74a55a25a949158444f09ec0d3c120d69e2",
                 "reference": "b945d74a55a25a949158444f09ec0d3c120d69e2",
->>>>>>> master/master
                 "shasum": ""
             },
             "require": {
@@ -1190,11 +1172,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-<<<<<<< HEAD
-            "time": "2022-11-08T14:47:39+00:00"
-=======
             "time": "2023-06-27T13:26:12+00:00"
->>>>>>> master/master
         },
         {
             "name": "laravel/sanctum",
@@ -1784,18 +1762,6 @@
         },
         {
             "name": "lorisleiva/laravel-actions",
-<<<<<<< HEAD
-            "version": "v2.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lorisleiva/laravel-actions.git",
-                "reference": "2f9277e7bbece95046a1e62b9530c943f6f0e6e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lorisleiva/laravel-actions/zipball/2f9277e7bbece95046a1e62b9530c943f6f0e6e5",
-                "reference": "2f9277e7bbece95046a1e62b9530c943f6f0e6e5",
-=======
             "version": "v2.6.0",
             "source": {
                 "type": "git",
@@ -1806,7 +1772,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/lorisleiva/laravel-actions/zipball/23439c9294d9bfc668f28f849c5df4ba88bdc4cd",
                 "reference": "23439c9294d9bfc668f28f849c5df4ba88bdc4cd",
->>>>>>> master/master
                 "shasum": ""
             },
             "require": {
@@ -1860,11 +1825,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lorisleiva/laravel-actions/issues",
-<<<<<<< HEAD
-                "source": "https://github.com/lorisleiva/laravel-actions/tree/v2.4.2"
-=======
                 "source": "https://github.com/lorisleiva/laravel-actions/tree/v2.6.0"
->>>>>>> master/master
             },
             "funding": [
                 {
@@ -1872,11 +1833,7 @@
                     "type": "github"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2022-11-08T17:19:29+00:00"
-=======
             "time": "2023-06-11T17:25:21+00:00"
->>>>>>> master/master
         },
         {
             "name": "lorisleiva/lody",
@@ -2053,18 +2010,6 @@
         },
         {
             "name": "nesbot/carbon",
-<<<<<<< HEAD
-            "version": "2.63.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "ad35dd71a6a212b98e4b87e97389b6fa85f0e347"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/ad35dd71a6a212b98e4b87e97389b6fa85f0e347",
-                "reference": "ad35dd71a6a212b98e4b87e97389b6fa85f0e347",
-=======
             "version": "2.67.0",
             "source": {
                 "type": "git",
@@ -2075,7 +2020,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/c1001b3bc75039b07f38a79db5237c4c529e04c8",
                 "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8",
->>>>>>> master/master
                 "shasum": ""
             },
             "require": {
@@ -2164,11 +2108,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2022-10-30T18:34:28+00:00"
-=======
             "time": "2023-05-25T22:09:47+00:00"
->>>>>>> master/master
         },
         {
             "name": "nette/schema",
@@ -4861,19 +4801,6 @@
             "time": "2022-11-03T14:55:06+00:00"
         },
         {
-<<<<<<< HEAD
-            "name": "symfony/polyfill-php81",
-            "version": "v1.27.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-php81.git",
-                "reference": "707403074c8ea6e2edaf8794b0157a0bfa52157a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php81/zipball/707403074c8ea6e2edaf8794b0157a0bfa52157a",
-                "reference": "707403074c8ea6e2edaf8794b0157a0bfa52157a",
-=======
             "name": "symfony/polyfill-php83",
             "version": "v1.27.0",
             "source": {
@@ -4885,7 +4812,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/508c652ba3ccf69f8c97f251534f229791b52a57",
                 "reference": "508c652ba3ccf69f8c97f251534f229791b52a57",
->>>>>>> master/master
                 "shasum": ""
             },
             "require": {
@@ -4933,11 +4859,7 @@
                 "shim"
             ],
             "support": {
-<<<<<<< HEAD
-                "source": "https://github.com/symfony/polyfill-php81/tree/v1.27.0"
-=======
                 "source": "https://github.com/symfony/polyfill-php83/tree/v1.27.0"
->>>>>>> master/master
             },
             "funding": [
                 {
@@ -6209,18 +6131,6 @@
         },
         {
             "name": "laravel/breeze",
-<<<<<<< HEAD
-            "version": "v1.14.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/breeze.git",
-                "reference": "4bb8e353790b3d797dec4451262d2a389e9c7461"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/breeze/zipball/4bb8e353790b3d797dec4451262d2a389e9c7461",
-                "reference": "4bb8e353790b3d797dec4451262d2a389e9c7461",
-=======
             "version": "v1.21.1",
             "source": {
                 "type": "git",
@@ -6231,7 +6141,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/breeze/zipball/1cb124f74debc1d5914a7bf2856b793c44ba396d",
                 "reference": "1cb124f74debc1d5914a7bf2856b793c44ba396d",
->>>>>>> master/master
                 "shasum": ""
             },
             "require": {
@@ -6280,11 +6189,7 @@
                 "issues": "https://github.com/laravel/breeze/issues",
                 "source": "https://github.com/laravel/breeze"
             },
-<<<<<<< HEAD
-            "time": "2022-11-06T16:31:46+00:00"
-=======
             "time": "2023-06-16T21:23:43+00:00"
->>>>>>> master/master
         },
         {
             "name": "laravel/sail",

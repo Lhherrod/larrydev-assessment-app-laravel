@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-* {
-    scroll-behavior: smooth;
-}
-
-.welcome_background {
-    background-image: url("/storage/images/php_collage.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    font-family: despairs;
-    background-attachment: fixed;
-}
-=======
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
->>>>>>> master/master
