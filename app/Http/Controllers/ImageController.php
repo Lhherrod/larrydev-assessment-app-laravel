@@ -9,9 +9,9 @@ class ImageController extends Controller
 {
     public function destroy (Image $picture)
     {
-        // dd(storage_path() . '\storage\images\\' . $picture->imageName);
-        Storage::delete(public_path() . '\storage\images\\' . $picture->imageName);
-        Image::where('imageName', $picture->imageName)->delete();
-        return back()->with('status', 'picture deleted successfully..');
+        Storage::disk('public')->delete('/images/' . $picture->name);
+        Image::where('name', $picture->name)->delete();
+        // return back()->with(['message' => 'picture deleted successfully...']);
+        return response(['message' => 'picture deleted successfully...'], 200);
     }
 }

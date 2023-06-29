@@ -22,6 +22,7 @@ class Assessment extends Model
         'as_ws_hosting',
         'as_ws_domain' ,
         'as_ws_content',
-        'username'
+        'status',
+        'user_id'
     ];
 }

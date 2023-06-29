@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\DropZoneController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,12 +37,13 @@ Route::group(['namespace'  => 'App\Actions'], function () {
 });
 
 Route::group(['middleware' => ['auth', 'verified']], (function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
     Route::group(['namespace' => 'App\Actions'], function () {
         Route::get('/dashboard', 'DashboardAction')
         ->name('dashboard');
-
-        Route::get('/assessment', 'AssessmentAction')
-        ->name('assessment.index');
 
         Route::get('/users', 'UserAction')
         ->name('users.index')
@@ -49,16 +54,16 @@ Route::group(['middleware' => ['auth', 'verified']], (function () {
         ->middleware('can:viewAny,App\Models\User');
     });
 
+    Route::get('/assessment', [AssessmentController::class, 'index'])->name('assessment.index');
     Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
     Route::get('/assessment/{user}/edit', [AssessmentController::class, 'edit'])->name('assessment.edit');
     Route::patch('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');
     Route::delete('/assessment/picture/{picture}', [ImageController::class, 'destroy'])->name('image.destroy');
-    Route::delete('/assessment/video/{video}', [VideoController::class, 'destroy'])->name('video.destroy');
+    Route::delete('/assessment/video/{video}', [VideoController ::class, 'destroy'])->name('video.destroy');
+
+    Route::post('/image/store', [DropZoneController::class, 'store'])->name('image.store');
 }));
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
