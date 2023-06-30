@@ -54,11 +54,15 @@ Route::group(['middleware' => ['auth', 'verified']], (function () {
         ->middleware('can:viewAny,App\Models\User');
     });
 
-    Route::get('/assessment', [AssessmentController::class, 'index'])->name('assessment.index');
-    Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
-    Route::get('/assessment/{user}/edit', [AssessmentController::class, 'edit'])->name('assessment.edit');
-    Route::patch('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');
-    Route::delete('/assessment/picture/{picture}', [ImageController::class, 'destroy'])->name('image.destroy');
+
+    // Route::get('/assessment', [AssessmentController::class, 'index'])->name('assessment.index');
+    // Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
+    // Route::get('/assessment/{user}/edit', [AssessmentController::class, 'edit'])->name('assessment.edit');
+    // Route::patch('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');
+
+    Route::resource('/assessment', AssessmentController::class)->except(['create', 'show']);
+
+    Route::delete('/assessment/image/{image}', [ImageController::class, 'destroy'])->name('image.destroy');
     Route::delete('/assessment/video/{video}', [VideoController ::class, 'destroy'])->name('video.destroy');
 
     Route::post('/image/store', [DropZoneController::class, 'store'])->name('image.store');

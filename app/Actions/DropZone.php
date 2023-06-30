@@ -7,7 +7,7 @@ use App\Services\AssessmentService;
 use Illuminate\Contracts\View\View;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class AssessmentAction
+class DropZone
 {
     use AsAction;
 
