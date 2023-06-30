@@ -9,6 +9,6 @@ class Video extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'videoName';
+    protected $primaryKey = 'name';
     protected $keyType = 'string';
 }

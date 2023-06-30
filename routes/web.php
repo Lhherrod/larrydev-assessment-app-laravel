@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\DropZoneController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,32 +37,30 @@ Route::group(['namespace'  => 'App\Actions'], function () {
 });
 
 Route::group(['middleware' => ['auth', 'verified']], (function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
     Route::group(['namespace' => 'App\Actions'], function () {
         Route::get('/dashboard', 'DashboardAction')
         ->name('dashboard');
 
-        Route::get('/assessment', 'AssessmentAction')
-        ->name('assessment.index');
-
         Route::get('/users', 'UserAction')
         ->name('users.index')
-        ->can('create', 'App\Models\User');
+        ->can('create', 'user');
 
         Route::patch('/users/{user}', 'UpdateUserAction')
         ->name('users.update')
-        ->middleware('can:viewAny,App\Models\User');
+        ->can('viewAny','user');
     });
 
-    Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
-    Route::get('/assessment/{user}/edit', [AssessmentController::class, 'edit'])->name('assessment.edit');
-    Route::patch('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');
-    Route::delete('/assessment/picture/{picture}', [ImageController::class, 'destroy'])->name('image.destroy');
-    Route::delete('/assessment/video/{video}', [VideoController::class, 'destroy'])->name('video.destroy');
-}));
+    Route::resource('/assessment', AssessmentController::class)->except(['create', 'show']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    Route::delete('/assessment/image/{image}', [ImageController::class, 'destroy'])->name('image.destroy');
+    Route::delete('/assessment/video/{video}', [VideoController ::class, 'destroy'])->name('video.destroy');
+
+    Route::post('/image/store', [DropZoneController::class, 'store'])->name('image.store');
+}));
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

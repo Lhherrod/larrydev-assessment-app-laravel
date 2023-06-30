@@ -1,52 +1,49 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Image;
 use App\Models\Video;
-use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\FileBag;
 
 class MediaService
 {
-    private function updateImage ($request)
+    public function process(FileBag $files)
     {
-        if($request->hasfile('imageName')) {
-            foreach($request->file('imageName') as $file) {
+        dd($files);
+    }
+    
+    public static function createImage (FileBag $files): void
+    {
+        // if($request->hasfile('image_name')) {
+            foreach($files as $file) {
                 $image = new Image();
-                $fileName = uniqid() . '-' . str_replace(' ', '-' , strtolower($file->hashName()));
+                //get sluggable?
+                $fileName = str_replace(' ', '-' , strtolower(auth()->user()->username . '-' . $file->hashName()));
                 $file->move(storage_path('app/public/images'), $fileName);
-                $image->imageName = $fileName;
-                $image->imagePath = $fileName;
-                $image->userName = Auth::user()->username;
+                $image->name = $fileName;
+                $image->path = $fileName;
+                $image->user_id = auth()->user()->id;
                 $image->save();
             }
-        }
+        // }
     }
 
-    static function getUpdateImage ($request)
+    public static function createVideo (FileBag $files): void
     {
-        $getUpdateImage = new MediaService;
-        return $getUpdateImage->updateImage($request);
-    }
-
-    private function updateVideo ($request)
-    {
-        if($request->hasfile('videoName')) {
-            foreach($request->file('videoName') as $videoFile) {
+        // if($request->hasfile('video_name')) {
+            foreach($files as $file) {
                 $video = new Video();
-                $fileName = uniqid() . '-' . str_replace(' ', '-' , strtolower($videoFile->hashName()));
-                $videoFile->move(storage_path('app/public/videos'), $fileName);
-                $video->videoName = $fileName;
-                $video->videoPath = $fileName;
-                $video->userName = Auth::user()->username;
+                //get sluggable?
+                $fileName = str_replace(' ', '-' , strtolower(auth()->user()->username . '-' . $file->hashName()));
+                $file->move(storage_path('app/public/videos'), $fileName);
+                $video->name = $fileName;
+                $video->path = $fileName;
+                $video->id = auth()->user()->id;
                 $video->save();
             }
-        }
-    }
-
-    static function getUpdateVideo ($request)
-    {
-        $getUpdateVideo = new MediaService;
-        return $getUpdateVideo->updateVideo($request);
+        // }
     }
 }

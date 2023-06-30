@@ -9,6 +9,6 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'imageName';
+    protected $primaryKey = 'name';
     protected $keyType = 'string';
 }
