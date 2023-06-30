@@ -23,14 +23,14 @@
                     <form method="POST" enctype="multipart/form-data" action="{{ route('assessment.update', $assessment->ulid) }}">
                         @method('PATCH')
                         @csrf
-                        @foreach (auth()->user()->assessment->get() as $field)
+
                             <div class="mt-4" x-data="{ show: false }">
                                 <p class="block font-medium text-gray-700">1. Website Pages</p>
                                 <x-label
                                     for="as_ws_pages_text"
                                     :value="__('What pages would you like? Ex: Homepage, Aboutus Page, Pages for Products/Services that you offer…etc')"
                                 />
-                               <p> Answer: {{ $field->as_ws_pages }}</p>
+                               <p> Answer: {{ $assessment->as_ws_pages }}</p>
                                 <div class="mt-2">
                                     <x-button @click="show = !show" onclick="event.preventDefault()" class="">
                                         {{ __('Edit') }}
@@ -42,7 +42,7 @@
                                             name="as_ws_pages"
                                             id="as_ws_pages_text"
                                             type="text"
-                                            :value="old('as_ws_pages', $field->as_ws_pages ?? null)"
+                                            :value="old('as_ws_pages', $assessment->as_ws_pages ?? null)"
                                             name="as_ws_pages"
                                             placeholder=" What pages would you like? Ex: Homepage, Aboutus Page, Pages for Products/Services that you offer…etc"
                                             autofocus
@@ -53,8 +53,8 @@
                             <div class="mt-4" x-data="{ show: false }">
                                 <p class="block font-medium text-sm text-gray-700">2. Website Style</p>
                                 <p>Any particular style of website that you like?</p>
-                                <p> Answer: {{ $field->as_ws_styles }}</p>
-                                <p>{{ $field->as_ws_styles_text }}</p>
+                                <p> Answer: {{ $assessment->as_ws_styles }}</p>
+                                <p>{{ $assessment->as_ws_styles_text }}</p>
                                 <div class="mt-2">
                                     <x-button   @click="show = !show" onclick="event.preventDefault()" class="">
                                         {{ __('Edit') }}
@@ -67,7 +67,7 @@
                                             name="as_ws_styles"
                                             type="radio"
                                             value="yes"
-                                            {{ $field->as_ws_styles === 'yes' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_styles === 'yes' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             x-show="show"
@@ -83,7 +83,7 @@
                                             name="as_ws_styles"
                                             type="radio"
                                             value="no"
-                                            {{ $field->as_ws_styles === 'no' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_styles === 'no' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             x-show="show"
@@ -103,7 +103,7 @@
                                             name="as_ws_styles_text"
                                             id="as_ws_styles_text"
                                             type="text"
-                                            :value="old('as_ws_styles_text', $field->as_ws_styles_text ?? null)"
+                                            :value="old('as_ws_styles_text', $assessment->as_ws_styles_text ?? null)"
                                             placeholder="or do you like a particular website's layout or style, and can provide website link(s) to show as an example?"
                                             autofocus
                                         />
@@ -113,8 +113,8 @@
                             <div class="mt-4" x-data="{ show: false }">
                                 <p class="block font-medium text-sm text-gray-700">3. Website Functions</p>
                                 <p>Are there any special functions that you would like implemented such as: e-commerce, a contact form, a newsletter, or blog?</p>
-                                <p> Answer: {{ $field->as_ws_functions }}</p>
-                                <p>{{ $field->as_ws_links_functions }}</p>
+                                <p> Answer: {{ $assessment->as_ws_functions }}</p>
+                                <p>{{ $assessment->as_ws_links_functions }}</p>
                                 <div class="mt-2">
                                     <x-button  @click="show = !show" onclick="event.preventDefault()">
                                         {{ __('Edit') }}
@@ -127,7 +127,7 @@
                                             name="as_ws_functions"
                                             type="radio"
                                             value="yes"
-                                            {{ $field->as_ws_functions === 'yes' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_functions === 'yes' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             x-show="show"
@@ -143,7 +143,7 @@
                                             name="as_ws_functions"
                                             type="radio"
                                             value="no"
-                                            {{ $field->as_ws_functions === 'no' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_functions === 'no' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             x-show="show"
@@ -163,7 +163,7 @@
                                             name="as_ws_functions_text"
                                             id="as_ws_functions_text"
                                             type="text"
-                                            :value="old('as_ws_functions_text', $field->as_ws_functions_text ?? null)"
+                                            :value="old('as_ws_functions_text', $assessment->as_ws_functions_text ?? null)"
                                             placeholder="Are there any special functions that you would like implemented such as: e-commerce, a contact form, a newsletter, or blog?"
                                             autofocus
                                         />
@@ -173,8 +173,8 @@
                             <div class="mt-4" x-data="{ show: false }">
                                 <p class="block font-medium text-sm text-gray-700">4. Website Budget</p>
                                 <p>Do you have a budget?</p>
-                                <p>Answer: {{ $field->as_ws_budget }}</p>
-                                <p>{{ $field->as_ws_budget_text }}</p>
+                                <p>Answer: {{ $assessment->as_ws_budget }}</p>
+                                <p>{{ $assessment->as_ws_budget_text }}</p>
                                 <div class="mt-2">
                                     <x-button @click="show = !show" onclick="event.preventDefault()">
                                         {{ __('Edit') }}
@@ -204,7 +204,7 @@
                                             onclick="document.getElementById('as_ws_budget_text').value = ''"
                                             type="radio"
                                             value="no"
-                                            {{ $field->as_ws_functions === 'no' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_functions === 'no' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             x-show="show"
@@ -224,7 +224,7 @@
                                             name="as_ws_budget_text"
                                             id="as_ws_budget_text"
                                             type="text"
-                                            :value="old('as_ws_budget_text', $field->as_ws_budget_text ?? null)"
+                                            :value="old('as_ws_budget_text', $assessment->as_ws_budget_text ?? null)"
                                             placeholder="$ please enter your budget in numbers..."
                                             autofocus
                                         />
@@ -234,8 +234,8 @@
                             <div class="mt-4" x-data="{ show: false }">
                                 <p class="block font-medium text-sm text-gray-700">5. Website Timeframe</p>
                                 <p>Is there a time frame to when the application is needed? If so, when?</p>
-                                <p> Answer: {{ $field->as_ws_timeframe }}</p>
-                                <p> {{ $field->as_ws_timeframe_text }}</p>
+                                <p> Answer: {{ $assessment->as_ws_timeframe }}</p>
+                                <p> {{ $assessment->as_ws_timeframe_text }}</p>
                                 <div class="mt-2">
                                     <x-button @click="show = !show" onclick="event.preventDefault()">
                                         {{ __('Edit') }}
@@ -248,7 +248,7 @@
                                             name="as_ws_timeframe"
                                             type="radio"
                                             value="yes"
-                                            {{ $field->as_ws_timeframe === 'yes' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_timeframe === 'yes' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             x-show="show"
@@ -264,7 +264,7 @@
                                             name="as_ws_timeframe"
                                             type="radio"
                                             value="no"
-                                            {{ $field->as_ws_timeframe === 'no' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_timeframe === 'no' ? 'checked' : '' }}
 
 
                                         />
@@ -287,7 +287,7 @@
                                             name="as_ws_timeframe_text"
                                             id="as_ws_timeframe_text"
                                             type="text"
-                                            :value="old('as_ws_timeframe_text', $field->as_ws_timeframe_text ?? null)"
+                                            :value="old('as_ws_timeframe_text', $assessment->as_ws_timeframe_text ?? null)"
                                             placeholder="Is there a time frame to when the application is needed? If so, when?"
                                         />
                                     </div>
@@ -296,7 +296,7 @@
                             <div class="mt-4" x-data="{ show: false }">
                                 <p class="block font-medium text-sm text-gray-700">6. Website Hosting</p>
                                 <p>Do You need hosting?</p>
-                                <p>Answer: {{ $field->as_ws_hosting }}</p>
+                                <p>Answer: {{ $assessment->as_ws_hosting }}</p>
                                 <div class="mt-2">
                                     <x-button @click="show = !show" onclick="event.preventDefault()">
                                         {{ __('Edit') }}
@@ -309,7 +309,7 @@
                                             name="as_ws_hosting"
                                             type="radio"
                                             value="yes"
-                                            {{ $field->as_ws_hosting === 'yes' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_hosting === 'yes' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             x-show="show"
@@ -324,7 +324,7 @@
                                             name="as_ws_hosting"
                                             type="radio"
                                             value="no"
-                                            {{ $field->as_ws_hosting === 'no' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_hosting === 'no' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             x-show="show"
@@ -338,7 +338,7 @@
                             <div class="mt-4" x-data="{ show: false }">
                                 <p class="block font-medium text-sm text-gray-700">7. Website Domain</p>
                                 <p>Do you need a domain name?</p>
-                                <p> Answer: {{  $field->as_ws_domain }}</p>
+                                <p> Answer: {{  $assessment->as_ws_domain }}</p>
                                 <div class="mt-2">
                                     <x-button @click="show = !show" onclick="event.preventDefault()" class="">
                                         {{ __('Edit') }}
@@ -351,7 +351,7 @@
                                             name="as_ws_domain"
                                             type="radio"
                                             value="yes"
-                                            {{ $field->as_ws_domain === 'yes' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_domain === 'yes' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             class="inline"
@@ -366,7 +366,7 @@
                                             name="as_ws_domain"
                                             type="radio"
                                             value="no"
-                                            {{ $field->as_ws_domain == 'no' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_domain == 'no' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             class="inline"
@@ -383,7 +383,7 @@
                                     Do you have your own nice photos, logos, artwork that you would like added on the website? 
                                     or do you have video or picture ideas?
                                 </p>
-                                <p>Answer: {{ $field->as_ws_content }}</p>
+                                <p>Answer: {{ $assessment->as_ws_content }}</p>
                                 <div class="mt-2">
                                     <x-button @click="show = !show" onclick="event.preventDefault()" class="">
                                         {{ __('Edit') }}
@@ -396,7 +396,7 @@
                                             name="as_ws_content"
                                             type="radio"
                                             value="yes"
-                                            {{ $field->as_ws_content === 'yes' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_content === 'yes' ? 'checked' : '' }}
                                         />
                                         <x-label
                                             class="inline"
@@ -412,7 +412,7 @@
                                             name="as_ws_content"
                                             type="radio"
                                             value="no"
-                                            {{ $field->as_ws_content === 'no' ? 'checked' : '' }}
+                                            {{ $assessment->as_ws_content === 'no' ? 'checked' : '' }}
                                         />
                                        <x-label
                                             class="inline"
@@ -432,7 +432,7 @@
                                             name="as_ws_content"
                                             id="as_ws_content_text"
                                             type="text"
-                                            :value="old('as_ws_content_text', $field->as_ws_content_text ?? null)"
+                                            :value="old('as_ws_content_text', $assessment->as_ws_content_text ?? null)"
                                             name="as_ws_content_text"
                                             placeholder="Do you have your own nice photos, logos, artwork that you would like added on the website? or do you have video or picture ideas?"
                                         />
@@ -445,7 +445,6 @@
                                     {{ __('Submit') }}
                                 </x-button>
                             </div>
-                        @endforeach
                     </form>
                     <form action="{{ route('image.store') }}"  enctype="multipart/form-data" class="dropzone mt-4" id="dropzone">
                         @csrf

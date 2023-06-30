@@ -47,18 +47,12 @@ Route::group(['middleware' => ['auth', 'verified']], (function () {
 
         Route::get('/users', 'UserAction')
         ->name('users.index')
-        ->can('create', 'App\Models\User');
+        ->can('create', 'user');
 
         Route::patch('/users/{user}', 'UpdateUserAction')
         ->name('users.update')
-        ->middleware('can:viewAny,App\Models\User');
+        ->can('viewAny','user');
     });
-
-
-    // Route::get('/assessment', [AssessmentController::class, 'index'])->name('assessment.index');
-    // Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
-    // Route::get('/assessment/{user}/edit', [AssessmentController::class, 'edit'])->name('assessment.edit');
-    // Route::patch('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');
 
     Route::resource('/assessment', AssessmentController::class)->except(['create', 'show']);
 
@@ -67,7 +61,6 @@ Route::group(['middleware' => ['auth', 'verified']], (function () {
 
     Route::post('/image/store', [DropZoneController::class, 'store'])->name('image.store');
 }));
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

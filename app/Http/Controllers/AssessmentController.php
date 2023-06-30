@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AssessmentRequest;
 use App\Http\Requests\AssessmentUpdateRequest;
 use App\Models\Assessment;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class AssessmentController extends Controller
 {
-
     public function __construct()
     {
+        $this->middleware(['can:view,assessment'])->only(['edit']);
     }
     
     /**
@@ -25,30 +24,15 @@ class AssessmentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(AssessmentRequest $request): RedirectResponse
     {
         Assessment::create($request->validated() + [
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
+            'ulid' => \Illuminate\Support\Str::ulid()
         ]);
         return redirect(route('assessment.index'))->with('status', 'assessment-completed');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Assessment $assessment)
-    {
-        //
     }
 
     /**
