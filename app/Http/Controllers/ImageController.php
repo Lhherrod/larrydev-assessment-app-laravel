@@ -7,11 +7,17 @@ use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
-    public function destroy (Image $picture)
+
+    public function index()
     {
-        // dd(storage_path() . '\storage\images\\' . $picture->imageName);
-        Storage::delete(public_path() . '\storage\images\\' . $picture->imageName);
-        Image::where('imageName', $picture->imageName)->delete();
-        return back()->with('status', 'picture deleted successfully..');
+        return auth()->user()->images;
+    }
+
+    public function destroy (Image $image)
+    {
+        Storage::disk('public')->delete('/images/' . $image->name);
+        Image::where('name', $image->name)->delete();
+        return response()->json(['message' => 'picture deleted successfully...'], 200);
+        // return response(['images' => auth()->user()->images->count()]);
     }
 }

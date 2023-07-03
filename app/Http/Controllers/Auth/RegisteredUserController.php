@@ -30,20 +30,11 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-<<<<<<< HEAD
-        $google_captcha_check = new GoogleCaptchaService(implode($request->safe()->only('g-recaptcha-response')));
-        if($google_captcha_check->getCaptchaResponse() !== true){
-            return back()->with('status', 'an error occurred...please try again, thank you.');
-        }
-        $user = new RegisteredUserService($request->validated());
-        $registerd_user = $user->create();
-        event(new Registered($registerd_user));
-        Auth::login($registerd_user);
-=======
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'username' => ['required', 'string', 'max:32']
         ]);
 
         $user = User::create([
@@ -57,7 +48,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
->>>>>>> master/master
         return redirect(RouteServiceProvider::HOME);
     }
 }

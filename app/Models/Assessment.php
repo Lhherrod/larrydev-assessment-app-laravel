@@ -22,6 +22,13 @@ class Assessment extends Model
         'as_ws_hosting',
         'as_ws_domain' ,
         'as_ws_content',
-        'username'
+        'status',
+        'ulid',
+        'user_id'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'ulid';
+    }
 }

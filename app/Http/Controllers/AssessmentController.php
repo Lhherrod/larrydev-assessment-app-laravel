@@ -4,40 +4,60 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AssessmentRequest;
 use App\Http\Requests\AssessmentUpdateRequest;
-use App\Http\Requests\ImageRequest;
 use App\Models\Assessment;
-use App\Models\Image;
-use App\Models\User;
-use App\Models\Video;
-use App\Services\AssessmentService;
-use App\Services\MediaService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class AssessmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['can:view,assessment'])->only(['edit']);
+    }
+    
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): View
+    {   
+        return view('assessment.index');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(AssessmentRequest $request): RedirectResponse
     {
         Assessment::create($request->validated() + [
-            'username' => auth()->user()->username
+            'user_id' => auth()->user()->id,
+            'ulid' => \Illuminate\Support\Str::ulid()
         ]);
-        AssessmentService::getUpdateAssessmentStatus();
-        return redirect(route('assessment.index'))->with('status', 'Assessment Completed, Thank You.');
+        return redirect(route('assessment.index'))->with('status', 'assessment-completed');
     }
 
-    public function edit(User $user): View
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Assessment $assessment): View
     {
-        $getAssessment = Assessment::where('username', $user->username)->get();
-        $getImages = Image::where('username', $user->username)->get();
-        $getVideos = Video::where('username', $user->username)->get();
-        return view('assessment.edit', compact('getAssessment', 'getImages', 'getVideos'));
+        return view('assessment.edit', compact('assessment'));
     }
 
-    public function update(AssessmentUpdateRequest $request, ImageRequest $image, $user): RedirectResponse
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(AssessmentUpdateRequest $request, Assessment $assessment): RedirectResponse
     {
-        AssessmentService::getUpdateAssessment($request, $user, $image);
-        MediaService::getUpdateImage($request);
-        MediaService::getUpdateVideo($request);
-        return redirect(route('assessment.edit', $user))->with('status', 'Assessment updated successfully.');
+        $assessment->where('id', $assessment->id)->update($request->validated());
+        return back()->with('status', 'assessment-updated');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Assessment $assessment): RedirectResponse
+    {
+        $assessment->delete();
+        return redirect(route('assessment.index'))->with('status', 'assessment-deleted');
     }
 }

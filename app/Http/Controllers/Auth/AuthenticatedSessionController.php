@@ -25,13 +25,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-<<<<<<< HEAD
-        $google_captcha_check = new GoogleCaptchaService(implode($request->safe()->only('g-recaptcha-response')));
-        if($google_captcha_check->getCaptchaResponse() !== true){
-            return back()->with('status', 'an error occurred...please try again, thank you.');
-        }
-=======
->>>>>>> master/master
         $request->authenticate();
 
         $request->session()->regenerate();

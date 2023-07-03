@@ -26,7 +26,7 @@ class AssessmentUpdateRequest extends FormRequest
         return [
             'as_ws_pages' => ['required','string', 'min:5'],
             'as_ws_styles' => ['required','string','min:2','max:3'],
-            'as_ws_styles_text' => ['required_unless:as_ws_styles,no'],
+            'as_ws_styles_text' => ['required_unless:as_ws_styles,no',],
             'as_ws_functions' => ['required','string','min:2','max:3'],
             'as_ws_functions_text' => ['required_unless:as_ws_functions,no'],
             'as_ws_budget' => ['required'],

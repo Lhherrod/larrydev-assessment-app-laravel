@@ -1,12 +1,10 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\VideoController;
-=======
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProfileController;
->>>>>>> master/master
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,41 +37,41 @@ Route::group(['namespace'  => 'App\Actions'], function () {
 });
 
 Route::group(['middleware' => ['auth', 'verified']], (function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
     Route::group(['namespace' => 'App\Actions'], function () {
         Route::get('/dashboard', 'DashboardAction')
         ->name('dashboard');
 
-        Route::get('/assessment', 'AssessmentAction')
-        ->name('assessment.index');
-
         Route::get('/users', 'UserAction')
         ->name('users.index')
-        ->can('create', 'App\Models\User');
+        ->can('create', 'user');
 
         Route::patch('/users/{user}', 'UpdateUserAction')
         ->name('users.update')
-        ->middleware('can:viewAny,App\Models\User');
+        ->can('viewAny','user');
     });
 
-    Route::post('/assessment', [AssessmentController::class, 'store'])->name('assessment.store');
-    Route::get('/assessment/{user}/edit', [AssessmentController::class, 'edit'])->name('assessment.edit');
-    Route::patch('/assessment/{user}/edit', [AssessmentController::class, 'update'])->name('assessment.update');
-    Route::delete('/assessment/picture/{picture}', [ImageController::class, 'destroy'])->name('image.destroy');
-    Route::delete('/assessment/video/{video}', [VideoController::class, 'destroy'])->name('video.destroy');
+    Route::resource('/assessment', AssessmentController::class)->except(['create', 'show']);
+
+    Route::post('/media/store', MediaController::class)->name('media.store');
+
+    Route::get('/assessment/image', [ImageController::class, 'index'])->name('image.index');
+    Route::delete('/assessment/image/{image}', [ImageController::class, 'destroy'])->name('image.destroy');
+    Route::get('/assessment/video', [VideoController::class, 'index'])->name('video.index');
+    Route::delete('/assessment/video/{video}', [VideoController ::class, 'destroy'])->name('video.destroy');
 }));
-
-Route::fallback(function () {
-    abort(404);
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::fallback(function () {
+    abort(404);
 });
 
 require __DIR__.'/auth.php';
