@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AssessmentController;
-use App\Http\Controllers\DropZoneController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
@@ -56,10 +56,12 @@ Route::group(['middleware' => ['auth', 'verified']], (function () {
 
     Route::resource('/assessment', AssessmentController::class)->except(['create', 'show']);
 
-    Route::delete('/assessment/image/{image}', [ImageController::class, 'destroy'])->name('image.destroy');
-    Route::delete('/assessment/video/{video}', [VideoController ::class, 'destroy'])->name('video.destroy');
+    Route::post('/media/store', MediaController::class)->name('media.store');
 
-    Route::post('/image/store', [DropZoneController::class, 'store'])->name('image.store');
+    Route::get('/assessment/image', [ImageController::class, 'index'])->name('image.index');
+    Route::delete('/assessment/image/{image}', [ImageController::class, 'destroy'])->name('image.destroy');
+    Route::get('/assessment/video', [VideoController::class, 'index'])->name('video.index');
+    Route::delete('/assessment/video/{video}', [VideoController ::class, 'destroy'])->name('video.destroy');
 }));
 
 Route::middleware('auth')->group(function () {

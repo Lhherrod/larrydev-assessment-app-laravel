@@ -6,9 +6,12 @@ use App\Models\Image;
 use App\Models\Video;
 use Illuminate\Http\Request;
 
-class DropZoneController extends Controller
+class MediaController extends Controller
 {
-    public function store(Request $request)
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke(Request $request)
     {
         $request->file('file')->getClientOriginalExtension() === 'mp4' ? 
         $request->file->move(storage_path('app/public/videos/'),  $request->file('file')->getClientOriginalName()) :
