@@ -320,7 +320,7 @@
                         :assessment="$assessment->as_ws_content"
                         placeholder="Do you have your own nice photos, logos, artwork that you would like added on the website? or do you have video or picture ideas?"
                     />
-                    <span x-show="show">upload pics, and videos below</span>
+                    <span x-cloak x-show="show">upload pics, and videos below</span>
                 </div>
             </div>
             <div class="flex items-center justify-end mt-4">

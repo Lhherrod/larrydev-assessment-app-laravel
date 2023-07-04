@@ -1,31 +1,32 @@
 import axios from 'axios';
 import './bootstrap';
 import Alpine from 'alpinejs';
+import Dropzone, { DropzoneFile } from 'dropzone';
 
 window.Alpine = Alpine;
 
-document.addEventListener('alpine:init', async () => {
+document.addEventListener('alpine:init', () => {
     Alpine.data('media', () => ({
         images: [],
         videos: [],
         styles: ['font-medium', 'text-sm', 'text-green-500'],
-        fireOffSuccessMessage(message){
+        fireOffSuccessMessage(message: string){
             let p = document.createElement('p');
             p.classList.add(...this.styles)
             p.appendChild(document.createTextNode(message))
             const currentDiv = document.getElementById('dropzone')
-            currentDiv.appendChild(p)
+            currentDiv?.appendChild(p)
             setTimeout(() => {p.remove()},3000)
         },
-        deletePicture(image,index) {
+        deletePicture(image: string, index: number) {
             this.images.splice(index,1)
             this.axios('/assessment/image/' + image, 'Image deleted successfully...')
         },
-        deleteVideo(video,index) {
+        deleteVideo(video: string, index: number) {
             this.videos.splice(index,1)
             this.axios('/assessment/video/' + video, 'Video deleted successfully...')
         },
-        async axios(url, message) {
+        async axios(url: string, message: string) {
             try {
                 await axios.delete(url)
                 this.fireOffSuccessMessage(message)
@@ -52,7 +53,7 @@ document.addEventListener('alpine:init', async () => {
 
 Alpine.start();
 
-let url;
+let url: string;
 
 const fireOffSuccessMessage = () => {
     let p = document.createElement('p');
@@ -60,7 +61,7 @@ const fireOffSuccessMessage = () => {
     let info = document.createTextNode('file uploaded and saved sucessfully!')
     p.appendChild(info)
     const currentDiv = document.getElementById('dropzone')
-    currentDiv.appendChild(p)
+    currentDiv?.appendChild(p)
     setTimeout(() => {p.remove()},3000)
 }
 
@@ -83,20 +84,20 @@ Dropzone.options.dropzone = {
         }
 
         let _ref;
-        (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+        (_ref = file.previewElement) != null ? _ref.parentNode?.removeChild(file.previewElement) : void 0;
 
         document.querySelector('#dropzone .dz-preview') ? 
-        document.getElementById('image-length').innerText = 'Media Items' :
-        document.getElementById('image-length').innerText = 'You Dont Have Any Media Items'
+        document!.getElementById('image-length')!.innerText = 'Media Items' :
+        document!.getElementById('image-length')!.innerText = 'You Dont Have Any Media Items'
         return
     },   
-    success: function(file, response){
+    success: function(file: DropzoneFile){
         if(document.querySelector('#dropzone .dz-preview')) {
-            document.getElementById('image-length').innerText = 'Media Items'
+            document!.getElementById('image-length')!.innerText = 'Media Items'
         }
         fireOffSuccessMessage()
     },
-    error: function(file, response) {
+    error: function(response: DropzoneFile) {
         console.log(response);
     }
 }

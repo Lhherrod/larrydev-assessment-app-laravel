@@ -1,5 +1,6 @@
 @props(['value' => '', 'name' => '', 'assessment' => ''])
 <input 
+    x-cloak
     x-show="show" 
     type="text" 
     name={{ $name }}
