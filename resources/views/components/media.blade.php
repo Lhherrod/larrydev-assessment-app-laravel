@@ -1,5 +1,10 @@
 <div class="mt-4" x-data="media">
     <div>
+        <template x-if="images.length || videos.length">
+            <div>
+                <p x-text="'Media Items'" class="text-4xl text-center text-zinc-500"></p>
+            </div>
+        </template>
         <template x-if="!images.length && !videos.length">
             <div>
                 <p id="image-length" class="text-4xl text-center text-zinc-500">You Dont Have Any Media Items</p>
