@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProfileController;
@@ -22,19 +23,13 @@ Route::get('/', function () {
     return view('welcome');
 })->name('landing');
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+Route::resource('contact', ContactController::class)
+->only(['index', 'store'])
+->names(['index' => 'contact']);
 
 Route::get('/about', function () {
     return view('about');
 })->name('about');
-
-Route::group(['namespace'  => 'App\Actions'], function () {
-    Route::post('/contact', 'ContactAction')
-    ->name('contact.store')
-    ->middleware('throttle:web');
-});
 
 Route::group(['middleware' => ['auth', 'verified']], (function () {
     Route::get('/dashboard', function () {

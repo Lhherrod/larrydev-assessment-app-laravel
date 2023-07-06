@@ -27,10 +27,9 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
-    'GOOGLE_CAPTCHA_URL' => env('GOOGLE_CAPTCHA_URL'),
-    'GOOGLE_CAPTCHA_SECRET' => env('GOOGLE_CAPTCHA_SECRET'),
-    'GOOGLE_CAPTCHA_SITE_KEY' => env('GOOGLE_CAPTCHA_SITE_KEY'),
-
+    'google_captcha_url' => env('GOOGLE_CAPTCHA_URL', ''),
+    'google_captcha_secret' => env('GOOGLE_CAPTCHA_SECRET', ''),
+    'google_captcha_site_key' => env('GOOGLE_CAPTCHA_SITE_KEY', ''),
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

@@ -16,6 +16,6 @@ class VideoController extends Controller
     {
         Storage::disk('public')->delete('/videos/' . $video->name);
         Video::where('id', $video->id)->delete();
-        return response()->json(['message' => 'video deleted successfully...'], 200);
+        return response()->json(['message' => 'video deleted successfully...']);
     }
 }
