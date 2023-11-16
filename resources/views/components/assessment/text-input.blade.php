@@ -1,6 +1,8 @@
 @props(['value' => '', 'name' => '', 'assessment' => ''])
 <input 
-    x-cloak
+    @if ($name !== 'as_ws_pages')
+        x-cloak
+    @endif
     x-show="show" 
     type="text" 
     name={{ $name }}

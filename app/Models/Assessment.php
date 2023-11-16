@@ -24,11 +24,17 @@ class Assessment extends Model
         'as_ws_content',
         'status',
         'ulid',
-        'user_id'
+        'user_id',
+        'signature'
     ];
 
     public function getRouteKeyName()
     {
         return 'ulid';
+    }
+
+    public function exists(string $signature)
+    {
+        return $this->where('signature', $signature)->exists();
     }
 }

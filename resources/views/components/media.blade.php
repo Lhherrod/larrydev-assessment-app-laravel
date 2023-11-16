@@ -13,7 +13,7 @@
          <template x-for="(image, index) in images" :key="image.id">
             <table class="mt-4" :key="image.id">
                 <tr><td x-text="image.name"></td></tr>
-                <tr><td><img :src="'/images/' + image.name" style="height:200px; width:200px"/></td></tr>
+                <tr><td><img :src="'/images/' + image.path" style="height:200px; width:200px"/></td></tr>
                 <tr>
                     <td>
                         <x-button @click.prevent="deletePicture(image.name,index)" class="mt-4">
@@ -28,7 +28,7 @@
                 <tr><td x-text="video.name"></td></tr>
                 <tr>
                     <td>
-                        <video :src="'/videos/' + video.name" type="mpeg/mp4" style="height:200px; width:200px"></video>
+                        <video :src="'/videos/' + video.path" type="mpeg/mp4" style="height:200px; width:200px"></video>
                     </td>
                 </tr>
                 <tr>

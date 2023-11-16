@@ -15,9 +15,10 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
+            $table->ulid();
+            $table->foreignId('assessment_id')->constrained('assessments')->cascadeOnDelete();
             $table->string('name')->nullable();
             $table->string('path')->nullable();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
@@ -14,6 +15,7 @@ class ContactController extends Controller
 
     public function store(ContactRequest $request)
     {
+        dd($request);
         Contact::create($request->validated());
         // return redirect(route('contact'))->with('status', 'contact-recieved');
         return back()->with(['status' => 'contact-recieved']);

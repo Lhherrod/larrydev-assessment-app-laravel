@@ -9,6 +9,15 @@ class Video extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'name';
-    protected $keyType = 'string';
+    protected $fillable = [
+        'name',
+        'ulid',
+        'path',
+        'assessment_id',
+    ];
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }   
 }

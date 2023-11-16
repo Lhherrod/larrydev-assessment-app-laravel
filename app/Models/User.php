@@ -54,15 +54,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Assessment::class);
     }
 
-    public function images(): HasMany
-    {
-        return $this->hasMany(Image::class);
-    }
+    // public function images(): HasMany
+    // {
+    //     return $this->hasMany(Image::class);
+    // }
 
-    public function videos(): HasMany
-    {
-        return $this->hasMany(Video::class);
-    }
+    // public function videos(): HasMany
+    // {
+    //     return $this->hasMany(Video::class);
+    // }
     
     public function getRouteKeyName(): string
     {

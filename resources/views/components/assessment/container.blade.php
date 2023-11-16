@@ -5,7 +5,7 @@
                 {{ __('Assessment Complete. Thank you.') }}
             </div>
         @endif
-        @if (session('status') == 'assessment-updated')
+        @if (session('status') === 'assessment-updated')
             <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
                 {{ __('Assessment Updated. Thank you.') }}
             </div>
@@ -14,6 +14,6 @@
             <div class="p-6 border-b border-[blueviolet] dark:text-gray-200">
                 {{ $slot }}
             </div>
-        </div>
+        </div> 
     </div>
 </div>

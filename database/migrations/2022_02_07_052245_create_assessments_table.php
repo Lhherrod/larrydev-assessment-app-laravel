@@ -14,7 +14,7 @@ class CreateAssessmentsTable extends Migration
     public function up()
     {   
         Schema::create('assessments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->text('as_ws_pages');
             $table->string('as_ws_styles');
             $table->text('as_ws_styles_text')->nullable();
@@ -27,8 +27,7 @@ class CreateAssessmentsTable extends Migration
             $table->string('as_ws_hosting');
             $table->string('as_ws_domain');
             $table->string('as_ws_content');
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('status')->default(1);
+            $table->string('signature');
             $table->softDeletes();
             $table->timestamps();
         });

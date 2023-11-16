@@ -1,20 +1,20 @@
 <x-app-layout>
     <x-header header="Assessment"/>
-    @if (!auth()->user()->checked_in)
+    @if(session('status') === 'assessment-completed')
         <x-assessment.container>
-            Please check in with me before attemping to completing the assessment. Thank you.
+            You have already completed the assessment please visit <a class="underline text-green-500" href="{{ route('assessment.edit',$ulid) }}">Here</a> to edit your assessment.
         </x-assessment.container>
-    @elseif (!auth()->user()->assessment)
-        <x-assessment.container>
+    @else
+        <x-assessment.container> 
             This is your Assessment...
             <x-application-logo-container/>
             <x-auth-validation-errors :messages="$errors" class="mt-2" />
-            <form method="POST" action="{{ route('assessment.store') }}">
+            <form method="POST" action="{{ $url }}">
                 @csrf
                 <div class="mt-4">
                     <p class="block font-medium text-gray-700">1. Website Pages</p>
-                    <p>What pages would you like? Ex: Homepage, Aboutus Page, Pages for Products/Services that you offer…etc</p>
-                    <x-assessment.label
+                    <p>What pages would you like? Ex: Homepage, About Us Page, Pages for Products/Services that you offer…etc</p>
+                    <x-label
                         for="as_ws_pages_text"
                     />
                     <x-assessment.text-input
@@ -258,13 +258,6 @@
                         x-show="show"
                         class="mt-4"
                         for="as_ws_content_text"
-                        :value="__('Do you have your own nice photos, logos, artwork that you would like added on the website? or do you have video or picture ideas?')"
-                    />
-                    <x-assessment.text-input
-                        id="as_ws_content_text"
-                        name="as_ws_content_text"
-                        :value="old('as_ws_content_text')"
-                        placeholder="Do you have your own nice photos, logos, artwork that you would like added on the website? or do you have video or picture ideas?"
                     />
                     <span x-show="show" class="block font-medium text-sm text-gray-700">
                         you will have an opportunity to upload media upon completion of the assessment
@@ -276,10 +269,6 @@
                     </x-primary-button>
                 </div>
             </form>
-        </x-assessment.container>
-    @else
-        <x-assessment.container>
-            You have already completed the assessment please visit <a class="underline text-green-500" href="{{ route('assessment.edit', auth()->user()->assessment->ulid) }}">Here</a> to edit your assessment.
         </x-assessment.container>
     @endif
 </x-app-layout>

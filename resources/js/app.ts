@@ -35,14 +35,17 @@ document.addEventListener('alpine:init', () => {
             }
         },
         async init() {
+            const image = window.location.href.split('/')[4]
+            const video = window.location.href.split('/')[4]
+
             try {
-                const response = await axios.get('/assessment/image')
+                const response = await axios.get(`/assessment/${image}/i/image`)
                 this.images = response.data
             } catch (error) {
                 console.log(error)
             }
             try {
-                const response = await axios.get('/assessment/video')
+                const response = await axios.get(`/assessment/${video}/v/video`)
                 this.videos = response.data
             } catch (error) {
                 console.log(error)
@@ -55,10 +58,10 @@ Alpine.start();
 
 let url: string;
 
-const fireOffSuccessMessage = () => {
+const fireOffMessage = (message: string, color = 'text-green-600'  ) => {
     let p = document.createElement('p');
-    p.classList.add('font-medium', 'text-sm', 'text-green-600',)
-    let info = document.createTextNode('file uploaded and saved sucessfully!')
+    p.classList.add('font-medium', 'text-sm', color)
+    let info = document.createTextNode(message)
     p.appendChild(info)
     const currentDiv = document.getElementById('dropzone')
     currentDiv?.appendChild(p)
@@ -76,9 +79,10 @@ Dropzone.options.dropzone = {
         } else {
             url = '/assessment/image/'
         }
+
         try {
             const response = await axios.delete(url + file.name)
-            console.log(response);
+            fireOffMessage(response.data.message)
         } catch (error) {
             console.log(error)
         }
@@ -95,10 +99,10 @@ Dropzone.options.dropzone = {
         if(document.querySelector('#dropzone .dz-preview')) {
             document!.getElementById('image-length')!.innerText = 'Media Items'
         }
-        fireOffSuccessMessage()
+        fireOffMessage('file uploaded and saved sucessfully!')
     },
     error: function(response: DropzoneFile) {
-        console.log(response);
+        fireOffMessage('This file type is not supported...', 'text-red-600')
     }
 }
 

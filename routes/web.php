@@ -7,6 +7,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,15 +50,15 @@ Route::group(['middleware' => ['auth', 'verified']], (function () {
         ->can('viewAny','user');
     });
 
-    Route::resource('/assessment', AssessmentController::class)->except(['create', 'show']);
-
-    Route::post('/media/store', MediaController::class)->name('media.store');
-
-    Route::get('/assessment/image', [ImageController::class, 'index'])->name('image.index');
-    Route::delete('/assessment/image/{image}', [ImageController::class, 'destroy'])->name('image.destroy');
-    Route::get('/assessment/video', [VideoController::class, 'index'])->name('video.index');
-    Route::delete('/assessment/video/{video}', [VideoController ::class, 'destroy'])->name('video.destroy');
 }));
+
+// assessments are now publically abilable via temporary unsigned url
+Route::resource('/assessment', AssessmentController::class)->except('index');
+Route::get('/assessment/{assessment}/i/image', [ImageController::class, 'index'])->name('image.index');
+Route::delete('/assessment/image/{image}', [ImageController::class, 'destroy'])->name('image.destroy');
+Route::get('/assessment/{assessment}/v/video', [VideoController::class, 'index'])->name('video.index');
+Route::delete('/assessment/video/{video}', [VideoController ::class, 'destroy'])->name('video.destroy');
+Route::post('/media/store/{assessment}', MediaController::class)->name('media.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -67,6 +68,14 @@ Route::middleware('auth')->group(function () {
 
 Route::fallback(function () {
     abort(404);
+});
+
+
+Route::get('/test', function () {
+    return URL::temporarySignedRoute(
+        'assessment.create',
+        now()->addCenturies()
+    );
 });
 
 require __DIR__.'/auth.php';

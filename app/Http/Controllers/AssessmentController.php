@@ -7,20 +7,29 @@ use App\Http\Requests\AssessmentUpdateRequest;
 use App\Models\Assessment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class AssessmentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['can:view,assessment'])->only(['edit']);
+        $this->authorizeResource(Assessment::class, 'assessment');
     }
-    
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(): View
+
+    public function create()
     {   
-        return view('assessment.index');
+        $url = URL::temporarySignedRoute(
+            'assessment.store',
+            now()->addHours(5)
+        );
+        
+        return view('assessment.create',['url' => $url]);
+    }
+
+    public function show(Assessment $assessment)
+    {   
+        return view('assessment.show',['asssessment' => $assessment]);
     }
 
     /**
@@ -28,11 +37,18 @@ class AssessmentController extends Controller
      */
     public function store(AssessmentRequest $request): RedirectResponse
     {
-        Assessment::create($request->validated() + [
-            'user_id' => auth()->user()->id,
-            'ulid' => \Illuminate\Support\Str::ulid()
+        $assessment = Assessment::create($request->validated() + [
+            'ulid' => Str::ulid(),
+            'signature' => $request->get('signature')
         ]);
-        return redirect(route('assessment.index'))->with('status', 'assessment-completed');
+
+        session()->flash('status', 'assessment-completed');
+
+        return redirect(
+            route('assessment.show', [
+                'assessment' => $assessment->ulid
+            ])
+        );
     }
 
     /**
@@ -40,6 +56,7 @@ class AssessmentController extends Controller
      */
     public function edit(Assessment $assessment): View
     {
+
         return view('assessment.edit', compact('assessment'));
     }
 
@@ -49,7 +66,8 @@ class AssessmentController extends Controller
     public function update(AssessmentUpdateRequest $request, Assessment $assessment): RedirectResponse
     {
         $assessment->where('id', $assessment->id)->update($request->validated());
-        return back()->with('status', 'assessment-updated');
+        session()->flash('status', 'assessment-updated');
+        return back();
     }
 
     /**

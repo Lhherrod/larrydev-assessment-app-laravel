@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assessment;
 use App\Models\Video;
 use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
-    public function index()
+    public function index(Assessment $assessment)
     {
-        return auth()->user()->videos;
+        return Video::where('assessment_id', $assessment->id)->get(); 
     }
 
     public function destroy (Video $video)

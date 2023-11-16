@@ -2,11 +2,11 @@
 
 namespace App\Rules\Google;
 
-use App\Services\Google\Captcha as GoogleCaptcha;
+use App\Services\Google\ReCaptcha as GoogleCaptcha;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class Captcha implements ValidationRule
+class ReCaptcha implements ValidationRule
 {
     /**
      * Run the validation rule.

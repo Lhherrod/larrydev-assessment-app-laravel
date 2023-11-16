@@ -5,7 +5,7 @@ namespace App\Services\Google;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
-class Captcha
+class ReCaptcha
 {
     private Response $response;
     private array $validate;

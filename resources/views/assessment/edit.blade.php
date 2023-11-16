@@ -329,7 +329,7 @@
                 </x-button>
             </div>
         </form>
-        <form action="{{ route('media.store') }}"  enctype="multipart/form-data" class="dropzone mt-4" id="dropzone">
+        <form action="{{ route('media.store',['assessment' => $assessment]) }}"  enctype="multipart/form-data" class="dropzone mt-4" id="dropzone">
             @csrf
         </form>
         <x-media/>

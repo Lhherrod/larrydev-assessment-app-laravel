@@ -46,14 +46,32 @@
 
         </div>
 
+        <div class="mt-4">
+            <x-input-label for="ulid" :value="__('Registration Code')" />
+
+            <x-text-input id="ulid" class="block mt-1"
+                            type="text"
+                            name="ulid" required />
+
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ml-4">
+            <x-primary-button class="ml-4"
+            class="g-recaptcha" 
+        data-sitekey="6LdtlFMgAAAAAKEj1VLvwsVmFYPfyV9EU2xjxLNK" 
+        data-callback='onSubmit' 
+        data-action='submit'>
                 {{ __('Register') }}
             </x-primary-button>
-        </div>
     </form>
 </x-guest-layout>
+
+<script>
+    function onSubmit(token) {
+      document.getElementById("register-form").submit();
+    }
+  </script>
